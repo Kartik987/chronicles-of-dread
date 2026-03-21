@@ -291,11 +291,34 @@ footer{background:var(--abyss);border-top:1px solid rgba(61,51,40,.12);padding:7
 .rdr-bdrip{position:absolute;top:0;width:2px;background:linear-gradient(180deg,var(--blood-glow),var(--blood),transparent);border-radius:0 0 50% 50%;animation:rbdrip 4s ease-in forwards;opacity:0}
 @keyframes rbdrip{0%{height:0;opacity:.6}50%{height:var(--rh,150px);opacity:.3}100%{height:var(--rh,150px);opacity:0}}
 
-/* Witch hand */
-.witch-hand{position:fixed;z-index:10003;pointer-events:none;opacity:0;transition:opacity 1s}
-.witch-hand.show{opacity:1}
-.witch-hand.left{left:-80px;top:40%}.witch-hand.right{right:-80px;top:50%}
-.witch-hand svg{width:100px;height:200px}
+/* Shadow Girl — cinematic silhouette approaching from behind post */
+.shadow-girl{position:fixed;z-index:10003;pointer-events:none;bottom:0;left:50%;transform:translateX(-50%) scale(.3);opacity:0;transition:opacity 4s cubic-bezier(.22,1,.36,1),transform 8s cubic-bezier(.22,1,.36,1);filter:blur(2px)}
+.shadow-girl.approach{opacity:.12;transform:translateX(-50%) scale(1);filter:blur(0px)}
+.shadow-girl.near{opacity:.18;transform:translateX(-50%) scale(1.1);filter:blur(0px)}
+.shadow-girl.fade{opacity:0;transform:translateX(-50%) scale(1.15);filter:blur(3px);transition:opacity 3s,transform 3s,filter 3s}
+
+/* Lamp glow held by shadow girl */
+.sg-lamp{position:absolute;top:22%;left:62%;width:60px;height:60px;border-radius:50%;background:radial-gradient(circle,rgba(212,160,72,.4) 0%,rgba(212,160,72,.15) 30%,rgba(212,160,72,.03) 60%,transparent 80%);animation:sg-lamp-flicker 3s ease-in-out infinite}
+@keyframes sg-lamp-flicker{0%,100%{opacity:.7;transform:scale(1)}25%{opacity:.5;transform:scale(.95)}50%{opacity:.8;transform:scale(1.05)}75%{opacity:.55;transform:scale(.98)}}
+
+/* ═══ GRAVEYARD CINEMATIC OVERLAY (landing page) ═══ */
+.graveyard-cine{position:fixed;inset:0;pointer-events:none;z-index:4;opacity:0;transition:opacity 4s ease-in-out}
+.graveyard-cine.show{opacity:1}
+.graveyard-cine.hide{opacity:0;transition:opacity 5s ease-in-out}
+
+.gy-ground{position:absolute;bottom:0;left:0;right:0;height:35%;background:linear-gradient(180deg,transparent 0%,rgba(16,14,10,.6) 30%,rgba(16,14,10,.85) 100%)}
+
+.gy-fog{position:absolute;bottom:10%;left:0;right:0;height:25%;background:linear-gradient(180deg,transparent,rgba(180,170,155,.04) 50%,transparent);animation:gy-fog-drift 12s ease-in-out infinite alternate}
+@keyframes gy-fog-drift{0%{transform:translateX(-5%)}100%{transform:translateX(5%)}}
+
+.gy-moon{position:absolute;top:8%;right:15%;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle,rgba(200,210,230,.12) 0%,rgba(184,196,212,.06) 40%,transparent 70%);box-shadow:0 0 80px 30px rgba(184,196,212,.04)}
+
+/* Graveyard bats */
+.gy-bat{position:absolute;font-size:20px;opacity:.4;animation:gy-bat-fly linear infinite}
+.gy-bat:nth-child(1){top:15%;animation-duration:8s;animation-delay:0s}
+.gy-bat:nth-child(2){top:22%;animation-duration:10s;animation-delay:2s;font-size:14px;opacity:.25}
+.gy-bat:nth-child(3){top:12%;animation-duration:7s;animation-delay:4s;font-size:16px;opacity:.3}
+@keyframes gy-bat-fly{0%{left:-30px}100%{left:calc(100% + 30px)}}
 
 /* Blood splash on open */
 .bsplc{position:fixed;inset:0;z-index:10004;pointer-events:none;opacity:0;transition:opacity .6s}.bsplc.on{opacity:1}
@@ -536,12 +559,66 @@ nav{padding:0 20px}
 <!-- ASH OVERLAY -->
 <div class="ash-overlay" id="ashov"></div>
 
-<!-- WITCH HANDS (appear during reading) -->
-<div class="witch-hand left" id="whl">
-<svg viewBox="0 0 100 200" fill="none"><path d="M90 180 Q80 140 70 120 Q60 100 55 80 L50 60 Q48 50 45 55 L42 70 Q40 60 37 50 Q35 45 32 50 L30 65 Q28 55 25 50 Q23 45 20 50 L18 70 Q16 60 12 55 Q10 50 8 55 L10 80 Q12 100 20 120 Q30 150 40 180 Z" fill="#2a1f15" stroke="#3d3328" stroke-width="1" opacity=".7"/></svg>
+<!-- SHADOW GIRL (appears during reading — holding a lamp, approaching from distance) -->
+<div class="shadow-girl" id="sgirl">
+  <!-- Lamp glow -->
+  <div class="sg-lamp"></div>
+  <!-- Girl silhouette SVG — flowing dress, hair, holding lamp arm extended -->
+  <svg viewBox="0 0 200 500" width="200" height="500" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:.85">
+    <!-- Hair flowing -->
+    <path d="M85 40 Q75 20 80 5 Q90 0 100 2 Q115 0 120 5 Q125 20 115 40 Q120 50 125 55 Q130 45 128 35 Q135 50 130 65 Q125 75 120 80" fill="rgba(20,16,12,.9)" stroke="none"/>
+    <!-- Head -->
+    <ellipse cx="100" cy="50" rx="22" ry="28" fill="rgba(20,16,12,.95)"/>
+    <!-- Neck -->
+    <rect x="93" y="75" width="14" height="20" rx="5" fill="rgba(20,16,12,.9)"/>
+    <!-- Torso -->
+    <path d="M80 95 Q78 130 75 160 L70 200 Q85 210 100 212 Q115 210 130 200 L125 160 Q122 130 120 95 Q110 88 100 87 Q90 88 80 95Z" fill="rgba(20,16,12,.9)"/>
+    <!-- Left arm (holding lamp, extended forward) -->
+    <path d="M78 100 Q65 115 55 130 Q48 140 45 145 L40 150 Q38 155 42 158 L50 155 Q55 148 60 138 Q68 122 75 110" fill="rgba(20,16,12,.85)" stroke="rgba(35,28,20,.5)" stroke-width=".5"/>
+    <!-- Right arm (down at side) -->
+    <path d="M122 100 Q130 120 135 145 Q137 160 135 175 Q132 178 128 175 Q130 158 128 142 Q124 120 118 105" fill="rgba(20,16,12,.85)"/>
+    <!-- Dress/skirt flowing -->
+    <path d="M70 200 Q60 260 55 320 Q50 380 48 440 Q55 460 70 470 Q85 475 100 478 Q115 475 130 470 Q145 460 152 440 Q150 380 145 320 Q140 260 130 200 Q115 210 100 212 Q85 210 70 200Z" fill="rgba(20,16,12,.9)"/>
+    <!-- Dress tatter details -->
+    <path d="M48 440 Q45 455 50 470 Q55 480 48 490" stroke="rgba(20,16,12,.7)" fill="none" stroke-width="2"/>
+    <path d="M152 440 Q155 455 150 470 Q145 480 152 490" stroke="rgba(20,16,12,.7)" fill="none" stroke-width="2"/>
+    <path d="M75 470 Q72 482 75 495" stroke="rgba(20,16,12,.6)" fill="none" stroke-width="1.5"/>
+    <path d="M125 470 Q128 482 125 495" stroke="rgba(20,16,12,.6)" fill="none" stroke-width="1.5"/>
+    <!-- Subtle eye glint -->
+    <circle cx="92" cy="46" r="1.5" fill="rgba(184,196,212,.15)"/>
+    <circle cx="108" cy="46" r="1.5" fill="rgba(184,196,212,.15)"/>
+  </svg>
 </div>
-<div class="witch-hand right" id="whr">
-<svg viewBox="0 0 100 200" fill="none" style="transform:scaleX(-1)"><path d="M90 180 Q80 140 70 120 Q60 100 55 80 L50 60 Q48 50 45 55 L42 70 Q40 60 37 50 Q35 45 32 50 L30 65 Q28 55 25 50 Q23 45 20 50 L18 70 Q16 60 12 55 Q10 50 8 55 L10 80 Q12 100 20 120 Q30 150 40 180 Z" fill="#2a1f15" stroke="#3d3328" stroke-width="1" opacity=".7"/></svg>
+
+<!-- GRAVEYARD CINEMATIC OVERLAY (landing page — shows at irregular intervals) -->
+<div class="graveyard-cine" id="gyCine">
+  <!-- Moon -->
+  <div class="gy-moon"></div>
+  <!-- Bats -->
+  <div class="gy-bat">🦇</div><div class="gy-bat">🦇</div><div class="gy-bat">🦇</div>
+  <!-- Ground fog -->
+  <div class="gy-fog"></div>
+  <!-- Ground -->
+  <div class="gy-ground"></div>
+  <!-- Graveyard silhouette SVG -->
+  <svg style="position:absolute;bottom:0;left:0;width:100%;height:40%;opacity:.7" viewBox="0 0 1440 300" preserveAspectRatio="none" fill="rgba(10,10,10,.9)" xmlns="http://www.w3.org/2000/svg">
+    <!-- Ground line -->
+    <path d="M0 300 L0 200 Q20 198 30 180 L32 140 L28 140 L28 135 L32 135 L32 110 L38 110 L38 135 L42 135 L42 140 L38 140 L38 180 Q48 198 70 200
+    Q100 195 120 185 L122 130 Q120 125 125 125 Q130 125 128 130 L128 185 Q150 195 180 198
+    Q210 196 240 188 L242 100 L238 100 L238 95 L242 95 L242 65 L248 65 L248 95 L252 95 L252 100 L248 100 L248 188 Q270 195 310 198
+    Q350 196 380 190 L382 155 L386 155 L386 130 L390 130 L390 155 L394 155 L394 190 Q420 195 460 198
+    Q490 196 520 190 L520 165 Q518 160 522 160 Q526 160 524 165 L524 190 Q550 195 590 198
+    Q620 196 650 190 L652 90 L648 90 L648 85 L652 85 L652 55 L658 55 L658 85 L662 85 L662 90 L658 90 L658 190 Q680 195 720 198
+    Q760 196 800 190 L802 145 L806 145 L806 120 L810 120 L810 145 L814 145 L814 190 Q840 195 880 198
+    Q920 196 960 190 L962 105 L958 105 L958 100 L962 100 L962 70 L968 70 L968 100 L972 100 L972 105 L968 105 L968 190 Q1000 195 1040 198
+    Q1070 196 1100 190 L1100 160 Q1098 155 1102 155 Q1106 155 1104 160 L1104 190 Q1140 195 1180 198
+    Q1210 196 1240 190 L1242 110 L1246 110 L1246 85 L1250 85 L1250 110 L1254 110 L1254 190 Q1280 195 1320 198
+    Q1360 196 1400 190 L1402 140 L1406 140 L1406 120 L1410 120 L1410 140 L1414 140 L1414 190 Q1430 195 1440 198 L1440 300 Z"/>
+    <!-- Dead tree on left -->
+    <path d="M100 200 L95 120 Q90 100 80 85 Q75 80 82 78 Q88 80 92 90 L95 110 Q93 95 88 75 Q85 68 90 66 Q95 70 97 80 L98 100 Q96 85 94 65 Q100 55 105 65 L103 100 Q108 80 115 70 Q120 68 118 74 Q112 82 106 100 L108 120 Q115 105 125 95 Q130 92 127 98 Q120 108 112 125 L110 200"/>
+    <!-- Dead tree on right -->
+    <path d="M1300 200 L1295 130 Q1290 110 1280 95 Q1275 88 1282 86 Q1288 90 1292 100 L1295 115 Q1293 100 1288 80 Q1294 70 1298 82 L1297 110 Q1302 90 1310 80 Q1315 78 1312 84 Q1305 95 1300 115 L1305 200"/>
+  </svg>
 </div>
 
 <!-- CONTENT -->
@@ -966,46 +1043,124 @@ function playFootsteps(callback){
   if(callback)setTimeout(callback,steps*700+200);
 }
 
-// ═══ GIRL SCREAM — sharp, haunting, not deafening ═══
+// ═══ GIRL SCREAM — cinematic, human-realistic vocal formant synthesis ═══
+// Models the human vocal tract: glottal source + formant resonances + breath noise
 function playGirlScream(){
   if(!AC)return;
   const now=AC.currentTime;
+  const dur=2.2; // Total scream duration
 
-  // Main scream: rising sine with harmonics
-  const freqs=[800,1200,1600,2000]; // Formant frequencies
-  freqs.forEach((freq,i)=>{
-    const o=AC.createOscillator();
-    const g=AC.createGain();
-    o.type=i===0?'sawtooth':'sine';
-    o.frequency.setValueAtTime(freq*.7,now);
-    o.frequency.linearRampToValueAtTime(freq,now+.08);
-    o.frequency.linearRampToValueAtTime(freq*1.1,now+.5);
-    o.frequency.exponentialRampToValueAtTime(freq*.5,now+1.2);
+  // ─── GLOTTAL SOURCE: fundamental pitch of a female scream ───
+  // Real female screams peak around 3000Hz but the fundamental is 400-900Hz
+  const glottal=AC.createOscillator();
+  const glottal2=AC.createOscillator();
+  glottal.type='sawtooth'; // Rich harmonics like vocal cords
+  glottal2.type='sawtooth';
 
-    const vol=[.06,.03,.02,.015][i];
-    g.gain.setValueAtTime(0,now);
-    g.gain.linearRampToValueAtTime(vol,now+.05);
-    g.gain.setValueAtTime(vol,now+.3);
-    g.gain.exponentialRampToValueAtTime(.001,now+1.2);
+  // Pitch contour: sharp rise → sustained → falling (like a real scream)
+  // Starts at gasp (250Hz), rockets up to peak (750Hz), sustains, then drops
+  glottal.frequency.setValueAtTime(250,now);
+  glottal.frequency.exponentialRampToValueAtTime(700,now+.12);  // Sharp attack
+  glottal.frequency.setValueAtTime(720,now+.4);                 // Sustain high
+  glottal.frequency.linearRampToValueAtTime(680,now+1.0);       // Slight waver
+  glottal.frequency.linearRampToValueAtTime(600,now+1.6);       // Losing breath
+  glottal.frequency.exponentialRampToValueAtTime(300,now+dur);   // Dying off
 
-    const f=AC.createBiquadFilter();
-    f.type='bandpass';f.frequency.value=freq;f.Q.value=3;
+  // Slightly detuned second for human imperfection
+  glottal2.frequency.setValueAtTime(252,now);
+  glottal2.frequency.exponentialRampToValueAtTime(705,now+.12);
+  glottal2.frequency.setValueAtTime(722,now+.4);
+  glottal2.frequency.linearRampToValueAtTime(682,now+1.0);
+  glottal2.frequency.linearRampToValueAtTime(602,now+1.6);
+  glottal2.frequency.exponentialRampToValueAtTime(302,now+dur);
 
-    o.connect(f);f.connect(g);g.connect(SG);
-    o.start(now);o.stop(now+1.3);
-  });
+  // ─── VIBRATO: natural vocal tremor ───
+  const vib=AC.createOscillator();
+  const vibG=AC.createGain();
+  vib.type='sine';
+  vib.frequency.value=5.5; // Natural vocal vibrato rate
+  vibG.gain.setValueAtTime(0,now);
+  vibG.gain.linearRampToValueAtTime(15,now+.5); // Vibrato increases as scream sustains
+  vibG.gain.linearRampToValueAtTime(25,now+1.5);
+  vibG.gain.linearRampToValueAtTime(8,now+dur);
+  vib.connect(vibG);
+  vibG.connect(glottal.frequency);
+  vibG.connect(glottal2.frequency);
 
-  // Breath/noise component
-  const nBuf=AC.createBuffer(1,AC.sampleRate*1,AC.sampleRate);
+  // ─── FORMANT FILTERS: shape the vowel (screams are typically "AH" → "EE") ───
+  // F1: 800Hz (open AH) → 300Hz (EE closing)
+  const f1=AC.createBiquadFilter();
+  f1.type='bandpass';f1.Q.value=8;
+  f1.frequency.setValueAtTime(800,now);
+  f1.frequency.linearRampToValueAtTime(600,now+1);
+  f1.frequency.linearRampToValueAtTime(350,now+dur);
+
+  // F2: 1200Hz → 2500Hz (formant transition AH→EE)
+  const f2=AC.createBiquadFilter();
+  f2.type='bandpass';f2.Q.value=6;
+  f2.frequency.setValueAtTime(1200,now);
+  f2.frequency.linearRampToValueAtTime(2200,now+.8);
+  f2.frequency.linearRampToValueAtTime(2500,now+dur);
+
+  // F3: 2800Hz (constant — nasal/head resonance)
+  const f3=AC.createBiquadFilter();
+  f3.type='bandpass';f3.Q.value=5;
+  f3.frequency.value=2800;
+
+  // F4: high presence/scream ring at 3200Hz
+  const f4=AC.createBiquadFilter();
+  f4.type='peaking';f4.Q.value=4;
+  f4.frequency.value=3200;
+  f4.gain.value=8;
+
+  // ─── GAINS for each formant path ───
+  const g1=AC.createGain(),g2=AC.createGain(),g3=AC.createGain();
+  g1.gain.value=.03; g2.gain.value=.02; g3.gain.value=.012;
+
+  // ─── AMPLITUDE ENVELOPE: realistic scream shape ───
+  const masterG=AC.createGain();
+  masterG.gain.setValueAtTime(0,now);
+  masterG.gain.linearRampToValueAtTime(.07,now+.06);   // Very fast attack (gasp→scream)
+  masterG.gain.linearRampToValueAtTime(.08,now+.15);    // Peak
+  masterG.gain.setValueAtTime(.07,now+.5);               // Sustain
+  masterG.gain.linearRampToValueAtTime(.05,now+1.2);     // Fading
+  masterG.gain.linearRampToValueAtTime(.02,now+1.8);     // Almost out of breath
+  masterG.gain.exponentialRampToValueAtTime(.001,now+dur);// Silence
+
+  // ─── BREATH NOISE: breathy, aspirated quality ───
+  const nLen=AC.sampleRate*dur;
+  const nBuf=AC.createBuffer(1,nLen,AC.sampleRate);
   const nd=nBuf.getChannelData(0);
-  for(let i=0;i<nd.length;i++){
-    const env=i<AC.sampleRate*.05?i/(AC.sampleRate*.05):Math.exp(-(i-AC.sampleRate*.05)/(AC.sampleRate*.4));
-    nd[i]=(Math.random()*2-1)*env*.3;
+  for(let i=0;i<nLen;i++){
+    // Envelope matches the scream
+    const t2=i/AC.sampleRate;
+    let env=0;
+    if(t2<.06) env=t2/.06;
+    else if(t2<.5) env=1;
+    else if(t2<1.5) env=1-(t2-.5)/2;
+    else env=Math.max(0,1-(t2-.5)/1.8);
+    nd[i]=(Math.random()*2-1)*env*.4;
   }
-  const ns=AC.createBufferSource();ns.buffer=nBuf;
-  const nf=AC.createBiquadFilter();nf.type='bandpass';nf.frequency.value=3000;nf.Q.value=1;
-  const ng=AC.createGain();ng.gain.value=.04;
-  ns.connect(nf);nf.connect(ng);ng.connect(SG);ns.start(now);
+  const nSrc=AC.createBufferSource();nSrc.buffer=nBuf;
+  const nFilt=AC.createBiquadFilter();nFilt.type='bandpass';nFilt.frequency.value=3500;nFilt.Q.value=1.5;
+  const nG=AC.createGain();nG.gain.value=.025;
+
+  // ─── CONNECT EVERYTHING ───
+  // Glottal → formants → gains → master
+  glottal.connect(f1);glottal.connect(f2);glottal.connect(f3);
+  glottal2.connect(f1);glottal2.connect(f2);glottal2.connect(f3);
+  f1.connect(g1);f2.connect(g2);f3.connect(g3);
+  g1.connect(f4);g2.connect(f4);g3.connect(f4);
+  f4.connect(masterG);
+  // Breath noise path
+  nSrc.connect(nFilt);nFilt.connect(nG);nG.connect(masterG);
+  masterG.connect(SG);
+
+  // Start all
+  glottal.start(now);glottal.stop(now+dur+.1);
+  glottal2.start(now);glottal2.stop(now+dur+.1);
+  vib.start(now);vib.stop(now+dur+.1);
+  nSrc.start(now);
 }
 
 // ═══ BLOOD CASCADE — full screen blood flow after scream ═══
@@ -1120,14 +1275,10 @@ function startReaderFx(){
       const d=document.createElement('div');d.className='rdr-bdrip';d.style.left=Math.random()*100+'%';d.style.setProperty('--rh',(80+Math.random()*200)+'px');d.style.animationDelay=Math.random()+'s';fx.appendChild(d);setTimeout(()=>d.remove(),5000);
     }else if(roll<.35){// Thunder flash + sound
       if(audioInit)playThunder();
-    }else if(roll<.45){// Witch hand from left
-      const wh=document.getElementById('whl');wh.classList.add('show');wh.style.top=(20+Math.random()*60)+'%';
-      wh.style.transition='left 3s cubic-bezier(.22,1,.36,1),opacity 1s';wh.style.left='0px';
-      setTimeout(()=>{wh.style.left='-80px';setTimeout(()=>wh.classList.remove('show'),1000)},2500);
-    }else if(roll<.55){// Witch hand from right
-      const wh=document.getElementById('whr');wh.classList.add('show');wh.style.top=(20+Math.random()*60)+'%';
-      wh.style.transition='right 3s cubic-bezier(.22,1,.36,1),opacity 1s';wh.style.right='0px';
-      setTimeout(()=>{wh.style.right='-80px';setTimeout(()=>wh.classList.remove('show'),1000)},2500);
+    }else if(roll<.45){// Shadow girl approaches from behind
+      trigShadowGirl();
+    }else if(roll<.55){// Shadow girl approaches from behind (alternate timing)
+      trigShadowGirl();
     }else if(roll<.65){// Bat swoop across reader
       const fx2=document.getElementById('rdrfx');const bat=document.createElement('div');
       bat.style.cssText='position:absolute;font-size:30px;top:'+(20+Math.random()*60)+'%;left:-50px;animation:bf 4s linear forwards;pointer-events:none';
@@ -1148,7 +1299,9 @@ function startReaderFx(){
 function stopReaderFx(){
   clearInterval(readerFxInterval);clearInterval(witchCackleInterval);clearTimeout(screamSequenceTimeout);
   document.getElementById('rdrfx').innerHTML='';
-  document.getElementById('whl').classList.remove('show');document.getElementById('whr').classList.remove('show');
+  // Reset shadow girl
+  const sg=document.getElementById('sgirl');
+  sg.classList.remove('approach','near','fade');sg.style.opacity='0';
 }
 
 // ─── ARTICLE OPEN/CLOSE ───
@@ -1381,6 +1534,128 @@ function showBP(){
 function closeBP(){
   document.getElementById('bpaper').classList.remove('show');
 }
+
+// ═══════════════════════════════════════════════
+// SHADOW GIRL — approaches from behind the post
+// A distant shadow holding a lamp, walks closer
+// then dissolves. Cinematic, not boxy.
+// ═══════════════════════════════════════════════
+let shadowGirlActive=false;
+function trigShadowGirl(){
+  if(shadowGirlActive)return;
+  shadowGirlActive=true;
+  const sg=document.getElementById('sgirl');
+
+  // Random horizontal offset so she doesn't always appear center
+  const offX=-50+Math.random()*20-10;
+  sg.style.transform=`translateX(${offX}%) scale(.3)`;
+  sg.style.opacity='0';
+  sg.classList.remove('approach','near','fade');
+
+  // Phase 1: Appear in distance (small, blurred)
+  requestAnimationFrame(()=>{
+    sg.classList.add('approach');
+    // Phase 2: Get close (8 seconds to approach)
+    setTimeout(()=>{
+      sg.classList.remove('approach');
+      sg.classList.add('near');
+    },6000);
+    // Phase 3: Fade away (dissolve back into darkness)
+    setTimeout(()=>{
+      sg.classList.remove('near');
+      sg.classList.add('fade');
+    },9000);
+    // Cleanup
+    setTimeout(()=>{
+      sg.classList.remove('fade');
+      sg.style.opacity='0';
+      sg.style.transform=`translateX(-50%) scale(.3)`;
+      shadowGirlActive=false;
+    },12000);
+  });
+}
+
+// Shadow girl also has her own interval during reading (separate from random events)
+let shadowGirlInterval=null;
+function startShadowGirlLoop(){
+  // First appearance after 30-60 seconds
+  shadowGirlInterval=setTimeout(function loop(){
+    if(document.getElementById('rdr').classList.contains('on')){
+      trigShadowGirl();
+    }
+    // Next appearance: 45-90 seconds
+    shadowGirlInterval=setTimeout(loop,45000+Math.random()*45000);
+  },30000+Math.random()*30000);
+}
+function stopShadowGirlLoop(){clearTimeout(shadowGirlInterval)}
+
+// Patch startReaderFx to also start shadow girl loop
+const __origStartRFx=startReaderFx;
+startReaderFx=function(){__origStartRFx();startShadowGirlLoop()};
+const __origStopRFx=stopReaderFx;
+stopReaderFx=function(){__origStopRFx();stopShadowGirlLoop()};
+
+// ═══════════════════════════════════════════════
+// GRAVEYARD CINEMATIC (landing page only)
+// Background gradually reveals a graveyard with
+// bats, moon, thunder — then fades away.
+// Loops at irregular intervals.
+// ═══════════════════════════════════════════════
+let gyInterval=null;
+function startGraveyardCine(){
+  // First appearance after 20-40 seconds
+  scheduleGY(20000+Math.random()*20000);
+}
+
+function scheduleGY(delay){
+  gyInterval=setTimeout(()=>{
+    // Only show on landing page, not in reader or overlays
+    if(document.getElementById('rdr').classList.contains('on')||document.querySelector('.ov.on')){
+      scheduleGY(15000);return;
+    }
+    showGraveyard();
+    // Schedule next: 60-120 seconds
+    scheduleGY(60000+Math.random()*60000);
+  },delay);
+}
+
+function showGraveyard(){
+  const gy=document.getElementById('gyCine');
+
+  // Phase 1: Gradually fade in graveyard (4 seconds)
+  gy.classList.remove('hide');
+  gy.classList.add('show');
+
+  // Phase 2: At peak visibility, trigger thunder + flash
+  setTimeout(()=>{
+    if(audioInit)playThunder();
+  },3500);
+
+  // Phase 3: Second thunder during full visibility
+  setTimeout(()=>{
+    if(audioInit&&Math.random()>.4)playThunder();
+  },6000);
+
+  // Phase 4: Owl hoot during graveyard
+  setTimeout(()=>{
+    if(audioInit)playOwl();
+  },4500);
+
+  // Phase 5: Gradual fade out (5 seconds transition)
+  setTimeout(()=>{
+    gy.classList.remove('show');
+    gy.classList.add('hide');
+  },9000);
+
+  // Cleanup
+  setTimeout(()=>{
+    gy.classList.remove('hide');
+  },15000);
+}
+
+// Start graveyard cinematic in boot
+const __origBoot=boot;
+boot=function(){__origBoot();setTimeout(startGraveyardCine,5000)};
 </script>
 </body>
 </html>
