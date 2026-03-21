@@ -1,0 +1,195 @@
+{
+  "site": {
+    "name": "Chronicles of Dread",
+    "tagline": "Forgotten Horrors Unearthed from the Ruins of History",
+    "description": "Unearth the most terrifying forgotten events in human history. Read chilling accounts of plagues, witch trials, asylums, and nightmares lost beneath the ruins of time.",
+    "url": "https://chroniclesofdread.com",
+    "established": "MDCCLXVI"
+  },
+
+  "categories": [
+    "Plague & Pestilence",
+    "Inquisition & Trials",
+    "Burial & Death Rites",
+    "Madness & Asylums",
+    "Shipwrecks & The Sea",
+    "Sieges & Starvation",
+    "Haunted Places",
+    "Unsolved Mysteries",
+    "Occult & Witchcraft",
+    "Victorian Horrors",
+    "Cannibalism & Survival",
+    "Cursed Objects"
+  ],
+
+  "posts": [
+    {
+      "id": "eyam-plague",
+      "featured": true,
+      "large": false,
+      "category": "Plague & Pestilence",
+      "title": "The Village That Buried Itself Alive",
+      "date": "Eyam, Derbyshire — Anno 1665",
+      "isoDate": "1665-09-01",
+      "readTime": "15 min",
+      "excerpt": "When plague-infested cloth arrived in the village of Eyam, its residents sealed themselves inside their own borders — every soul condemned to survive or perish together, so the pestilence would claim no lives beyond their walls.",
+      "content": "<p>The bolt of cloth arrived in late August of 1665, shipped from a London warehouse to the tailor Alexander Hadfield in the small Derbyshire village of Eyam. It was damp when it arrived, and Hadfield's assistant, George Viccars, hung the fabric near the fire to dry. The fleas nested in the cloth — bloated with Yersinia pestis — warmed to life and found their way to Viccars within hours. He was dead within a week. Nobody in Eyam yet understood what had come to their village.</p><p>By September, the deaths were mounting. Families healthy on Sunday were burying children by Thursday. The disease spread through houses like a draught through an open door — one member would develop the telltale swellings in the groin and armpit, and within days the rest would follow.</p><blockquote>We shall not carry this affliction beyond our borders. We shall contain it here, among ourselves, whatever the cost.</blockquote><p>Reverend William Mompesson and Thomas Stanley proposed something that had never been attempted before. They asked the people of Eyam to quarantine themselves. Voluntarily. Completely. No one would leave the village. No one would enter. The village would seal itself off from the world and either survive the plague or die with it.</p><p>The remarkable thing is that they agreed. The Earl of Devonshire arranged for food and supplies to be left at boundary stones on the village perimeter. Payment was left in holes drilled into the stone, the coins soaked in vinegar in the desperate and ultimately futile belief that this might kill the contagion.</p><div class='aside-note'><span class='note-title'>Historical Note</span>The boundary stones still stand in the fields around Eyam. The holes where vinegar-soaked coins were left remain visible. Visitors still leave coins in them today — not as payment, but as tribute to those who sacrificed everything.</div><p>Elizabeth Hancock buried six of her children and her husband in the space of eight days, dragging their bodies to a nearby field herself because no one remained in her part of the village strong enough to help her. She dug the graves with her own hands. The Hancock family's field is still there, marked by a low stone wall, and the seven graves stand in a row — the smallest ones at the end.</p><p>Marshall Howe, who had survived an early bout and believed himself immune, took on the grim task of burying the dead across the entire village. He wrapped the bodies in sheets soaked in whatever remedies were available and lowered them into graves that grew shallower as his strength failed. By autumn 1666, at least 260 of Eyam's 350 residents were dead. But the surrounding villages were spared entirely. The quarantine held, and the people of Eyam had chosen death over flight — a decision that haunts the moral imagination to this day.</p>"
+    },
+    {
+      "id": "pendle-witches",
+      "featured": false,
+      "large": true,
+      "category": "Inquisition & Trials",
+      "title": "The Pendle Witch Trials: When Neighbours Became Executioners",
+      "date": "Lancashire, England — Anno 1612",
+      "isoDate": "1612-08-17",
+      "readTime": "14 min",
+      "excerpt": "In the shadow of Pendle Hill, twelve souls were accused of witchcraft through the testimony of a nine-year-old child — their own neighbours, bound by superstition into a spiral of betrayal that ended at the gallows.",
+      "content": "<p>Pendle Hill rises from the Lancashire moorland like something that grew there without permission — a dark, treeless hump of gritstone and peat that dominates the landscape for miles in every direction. The villages clustered around its base in the early seventeenth century were poor, isolated, and deeply superstitious. Literacy was rare. The established church was a distant authority. What people knew of the world came from rumour, from the changing seasons, and from the old women who still remembered the old ways of healing.</p><p>Two of these women, Elizabeth Southerns and Anne Whittle — known locally as Old Demdike and Old Chattox — had been rivals for decades. Both were elderly, both were nearly blind, and both had reputations as cunning women who could cure ailments, find lost objects, and bring misfortune upon their enemies if sufficiently provoked. Whether they believed in their own powers is impossible to know at this distance. What is certain is that their neighbours believed, and that belief proved fatal.</p><p>The unravelling began on the eighteenth of March, 1612, when Demdike's granddaughter Alizon Device encountered a peddler named John Law on the road near Colne. She asked to buy pins from him. Law refused. According to Alizon's own later testimony, she cursed him, and moments later he collapsed with what modern medicine would almost certainly diagnose as a stroke. Law's son reported the incident to the local magistrate Roger Nowell, and Nowell began an investigation that spiralled beyond anyone's control.</p><blockquote>She stood upon the table so the court could see her, and she pointed at them one by one — her mother, her brother, her sister — and named the curses they had cast.</blockquote><p>The trial's key witness was Jennet Device, Alizon's nine-year-old sister. She was placed on a table so judges could see her clearly. She pointed at the accused and described their crimes with devastating specificity. In an age that regarded children as innocent vessels incapable of complex deception, her words carried the weight of divine revelation.</p><p>Ten of the twelve accused were convicted and hanged the following day on the moors above Lancaster. Old Demdike never stood trial — she died in the dungeons of Lancaster Castle before the assizes began, blind and frail and eighty years old. Jennet Device, the child whose testimony killed her family, vanished from the historical record. Her fate remains as unknown as the truth of the accusations she made.</p>"
+    },
+    {
+      "id": "bedlam-asylum",
+      "featured": false,
+      "large": false,
+      "category": "Madness & Asylums",
+      "title": "Bedlam's Forgotten Inmates",
+      "date": "London, England — 1403 to 1815",
+      "isoDate": "1403-01-01",
+      "readTime": "11 min",
+      "excerpt": "Bethlem Royal Hospital held the mentally ill in chains while fashionable Londoners paid a penny to watch them suffer, as though human madness were theatre.",
+      "content": "<p>The Priory of St Mary of Bethlehem was founded in Bishopsgate, London, in 1247, originally as a house for the collection of alms. By 1403, it had begun to accept patients described in the records as distracted — a term that covered everything from what we would now call schizophrenia to simple melancholy, from epilepsy to the delirium of advanced syphilis. The priory's name shortened over the generations to Bethlem, and from Bethlem to the word that would become synonymous with chaos and suffering: Bedlam.</p><p>Patients were confined in cells measuring roughly eight feet by six. Many were chained to the walls by iron manacles that cut into wrists and ankles until the skin broke and infection set in. Straw served as bedding, changed infrequently. Sewage accumulated in the corridors. The food, when it arrived at all, consisted of whatever the keepers could be bothered to provide — thin gruel, bread gone stale, and water drawn from the same well that served the latrines.</p><p>The most notorious aspect of Bedlam was not the treatment but the spectacle. Beginning in the sixteenth century and continuing until at least the late eighteenth, the hospital admitted paying visitors to observe the inmates. Approximately 96,000 people per year walked the galleries at the practice's peak, laughing at patients who raved in their chains, poking them through the bars with walking sticks, throwing food to watch them scramble on the floor. The suffering of the mentally ill had been monetized into a form of public entertainment indistinguishable from bear-baiting.</p><p>The word bedlam entered the English language as a common noun meaning chaos and confusion. It is still used today, usually by people with no idea of its origin — a linguistic monument to the hundreds of thousands of souls who suffered inside those walls and were forgotten by every generation that followed.</p>"
+    },
+    {
+      "id": "safety-coffins",
+      "featured": false,
+      "large": false,
+      "category": "Burial & Death Rites",
+      "title": "The Safety Coffins of Victorian England",
+      "date": "England — 1820 to 1899",
+      "isoDate": "1820-01-01",
+      "readTime": "9 min",
+      "excerpt": "So great was the Victorian terror of premature burial that inventors devised coffins fitted with bells, breathing tubes, and escape mechanisms — testaments to an era consumed by the fear of waking six feet under.",
+      "content": "<p>The fear of being buried alive is one of the most ancient terrors known to humankind, but it reached its absolute zenith in the nineteenth century, when it acquired a clinical name — taphophobia — and an entire industry devoted to its prevention. The Victorians did not merely worry about premature burial. They were consumed by it. They wrote pamphlets, founded societies to combat it, invented devices to prevent it, and told each other stories about it with a compulsive dread that suggests the fear had burrowed into the collective psyche of an entire civilization.</p><p>The terror was not without foundation. Before the invention of the stethoscope and the development of reliable methods for confirming death, the boundary between life and its absence was disturbingly unclear. Deep comas, cataleptic seizures, and certain drug overdoses could produce a state so closely resembling death that even trained physicians were sometimes deceived.</p><p>The simplest safety coffins connected the occupant's hand, by means of a cord threaded through a tube in the coffin lid, to a bell mounted above the grave. Any movement would ring the bell and alert the cemetery attendant. More ambitious designs used flags, lamps, or even fireworks that would deploy automatically upon any movement within the coffin.</p><div class='aside-note'><span class='note-title'>Did You Know?</span>Count Karnice-Karnicki of Russia patented a device in 1897 that used a glass ball resting on the chest of the deceased. Any breath would dislodge the ball, triggering a breathing tube, a flag, a lamp, and a bell simultaneously. Whether it ever saved a life remains unknown.</div><p>The grandest designs dispensed with signaling altogether and simply provided the means of escape. Internal latches that could be operated from inside. Breathing tubes with speaking trumpets attached. Even feeding tubes through which family members could lower sustenance while rescue was organized. One German inventor created a coffin with a lock openable from inside, a ladder for climbing out, and a change of clothes stored beneath the pillow — because emerging from your own grave apparently called for fresh attire.</p>"
+    },
+    {
+      "id": "raft-medusa",
+      "featured": false,
+      "large": false,
+      "category": "Shipwrecks & The Sea",
+      "title": "The Raft of the Medusa: Cannibalism on the Open Sea",
+      "date": "Atlantic Ocean — Anno 1816",
+      "isoDate": "1816-07-02",
+      "readTime": "12 min",
+      "excerpt": "One hundred and forty-seven souls abandoned on a makeshift raft after the frigate Medusa ran aground. Only fifteen survived thirteen days of starvation, mutiny, and acts that defy language.",
+      "content": "<p>The French naval frigate Méduse sailed from Rochefort on the seventeenth of June, 1816, bound for the port of Saint-Louis in Senegal. She was commanded by Hugues Duroy de Chaumareys, a man who had not sailed in twenty years and who owed his appointment entirely to political connections rather than any demonstrable competence at sea. The disaster that followed was, in every meaningful sense, his personal fault.</p><p>On the second of July, through a combination of navigational incompetence and arrogant refusal to accept advice from his experienced officers, Chaumareys ran the Méduse aground on the Arguin Bank — a well-charted sandbank off the coast of present-day Mauritania that any competent navigator would have avoided by a comfortable margin. Attempts to refloat the vessel failed. The six lifeboats could accommodate roughly 250 of the 400 people aboard. For the remainder, the ship's officers hastily constructed a raft from spars, masts, and planking.</p><p>The first night was carnage. At least twenty people were killed in fighting or threw themselves into the sea. By the fourth day, the survivors had begun consuming the flesh of the dead — strips cut from corpses and dried in the sun. On the sixth day, the strongest survivors threw the sick and wounded overboard in a cold, deliberate calculation that has haunted the literature of survival ever since.</p><p>When the brig Argus finally spotted the raft on the seventeenth of July — thirteen days after the abandonment — only fifteen people remained alive, and five of those died shortly after rescue. The painter Théodore Géricault immortalized the catastrophe in his monumental painting, ensuring that the horror of the Medusa would never be forgotten by posterity.</p>"
+    },
+    {
+      "id": "dancing-plague",
+      "featured": false,
+      "large": false,
+      "category": "Plague & Pestilence",
+      "title": "The Dancing Plague of Strasbourg",
+      "date": "Strasbourg, Holy Roman Empire — Anno 1518",
+      "isoDate": "1518-07-01",
+      "readTime": "8 min",
+      "excerpt": "A woman began to dance in the street without music or celebration. Within a month, four hundred had joined her — many dancing without rest until they collapsed dead from sheer exhaustion.",
+      "content": "<p>Sometime during the second week of July 1518, a woman known in the records as Frau Troffea stepped out of her house into a narrow street in Strasbourg and began to dance. There was no music playing. There was no festival or celebration. She simply danced — fervently, relentlessly, and without any explanation that witnesses could discern. She danced through the afternoon, through the evening, through the night, and into the following morning without stopping.</p><p>Within a week, thirty-four other people had joined her. Within a month, the number had grown to approximately four hundred. The municipal records document the phenomenon with matter-of-fact precision — council minutes noting payments to musicians, to carpenters who built a stage, and to porters who carried the exhausted dancers to a mountaintop shrine dedicated to Saint Vitus.</p><p>The civic authorities initially prescribed more dancing, believing the afflicted were suffering from hot blood that needed to burn itself out. Musicians were hired and guild halls opened as dancing venues. The effect was to make the epidemic dramatically worse. When people began dying from strokes and exhaustion, they reversed course — banning all public dancing, dismissing the musicians, and transporting the afflicted to the shrine.</p><p>Modern explanations favour mass psychogenic illness triggered by extreme stress. Strasbourg had endured devastating harvests, widespread famine, and outbreaks of smallpox in the preceding years. The urban poor were desperate, malnourished, and psychologically primed for collective breakdown. The dancing plague subsided by September, but the question of what truly caused it has danced beyond the reach of certainty ever since.</p>"
+    },
+    {
+      "id": "siege-leningrad",
+      "featured": false,
+      "large": false,
+      "category": "Sieges & Starvation",
+      "title": "The Siege of Leningrad: 872 Days of Darkness",
+      "date": "Leningrad, Soviet Union — 1941 to 1944",
+      "isoDate": "1941-09-08",
+      "readTime": "16 min",
+      "excerpt": "For nearly nine hundred days, the citizens of Leningrad endured one of the longest and most devastating sieges in all of recorded history — subsisting on sawdust bread, wallpaper paste, and worse.",
+      "content": "<p>On the eighth of September, 1941, German forces severed the last road connecting Leningrad to the rest of the Soviet Union. Finnish troops held the northern approaches. The city of nearly three million people was completely encircled. Hitler's directive was explicit and chilling in its simplicity: the city was to be wiped from the face of the earth. There would be no surrender accepted, no negotiation entertained. The plan was to starve the population to death and then demolish whatever remained standing.</p><p>By November of the first winter, the daily bread ration had fallen to 125 grams per person — a slice roughly the size of a playing card, made from a mixture that contained as much cellulose filler, sawdust, and cottonseed hulls as it did actual flour. Citizens scraped the walls of a sugar warehouse that had been destroyed in the September bombings, dissolving the sweetened earth in water to extract whatever calories remained. They boiled leather goods. They ate wallpaper paste, joiner's glue, and petroleum jelly.</p><p>The only supply route into the besieged city ran across Lake Ladoga — the Road of Life. Trucks drove across the frozen lake at night, without headlights, with their doors wired open so that drivers could jump free if the ice gave way beneath them. Many trucks broke through and sank. The loads they carried were never enough, but they were enough to prevent the city's total collapse.</p><p>By the siege's end in January 1944, an estimated one million civilians had perished — the vast majority from starvation and cold. Survivors carried the siege with them for the rest of their lives — unable to throw away a crust of bread, compulsively hoarding food in drawers, checking the stove before anything else upon waking. The siege had inscribed itself into their bodies, and no amount of peacetime plenty could fully erase the inscription.</p>"
+    }
+  ],
+
+  "timeline": [
+    {"year": "79 AD", "title": "The Destruction of Pompeii", "text": "Mount Vesuvius buried an entire civilization in a single night. The ash preserved their final moments — bodies frozen in postures of terror that would endure two millennia."},
+    {"year": "1347", "title": "The Black Death Arrives", "text": "Genoese ships docked in Sicily carrying the bubonic plague. Within five years, half of Europe's population was dead. Entire villages vanished from the map."},
+    {"year": "1478", "title": "The Spanish Inquisition Begins", "text": "Established by Ferdinand and Isabella, the Inquisition would torture and execute thousands over three centuries in the name of religious purity."},
+    {"year": "1518", "title": "The Dancing Plague", "text": "Hundreds danced without rest in Strasbourg for weeks. Many collapsed dead from exhaustion. No satisfactory explanation has ever been found."},
+    {"year": "1692", "title": "The Salem Witch Trials", "text": "Mass hysteria in colonial Massachusetts led to twenty executions. Guilt was determined by spectral evidence and the convulsions of frightened children."},
+    {"year": "1816", "title": "The Raft of the Medusa", "text": "147 souls cast onto a raft in the Atlantic. Thirteen days of cannibalism and madness. Fifteen survived."},
+    {"year": "1888", "title": "The Whitechapel Murders", "text": "Jack the Ripper stalked the gaslit streets of London. The killer's identity remains history's most infamous unsolved mystery."},
+    {"year": "1941", "title": "The Siege of Leningrad Begins", "text": "872 days of starvation. One million civilian deaths. The deadliest blockade in human history."}
+  ],
+
+  "gazette": {
+    "main": {
+      "title": "The Bone Church of Sedlec: Where the Dead Became Architecture",
+      "date": "Kutná Hora, Bohemia — Anno 1870",
+      "paragraphs": [
+        "Beneath the quiet town of Kutná Hora lies an ossuary that holds the remains of over forty thousand souls. In the nineteenth century, a woodcarver named František Rint was given a task that would have broken most craftsmen — organize the bones that had been accumulating for five hundred years. Instead of stacking them in neat rows, Rint chose something altogether different. He decided to turn death itself into art.",
+        "Chandeliers assembled from femurs and shoulder blades hang from the ceiling. Long garlands of skulls drape the archways. A coat of arms constructed entirely from human remains adorns the eastern wall. The bones belong to victims of the fourteenth-century plague and the brutal Hussite Wars.",
+        "For generations, soil from the Holy Land had been scattered over the Sedlec churchyard, making it one of the most coveted burial grounds in Central Europe. So many were interred that the dead quite literally ran out of room. Bones surfaced after rainstorms. Gravediggers stacked femurs like firewood in the lower chapel, waiting for someone to decide what to do with them all."
+      ]
+    },
+    "sidebar": [
+      {"title": "The Catacombs of Paris", "text": "Miles of tunnels beneath the City of Light hold the remains of six million Parisians. Beyond the mapped tourist passages, unmapped tunnels stretch into absolute darkness — and people still go looking for what lies at the end of them."},
+      {"title": "London's Plague Pits", "text": "Beneath modern London lie mass graves from the Great Plague of 1665. Construction crews still break through into forgotten pits, and the dead city beneath reveals itself to the living city above."},
+      {"title": "The Capuchin Crypt of Rome", "text": "In the basement of Santa Maria della Concezione, the remains of 3,700 friars decorate five chapels. A placard reads: What you are now, we once were; what we are now, you shall be."}
+    ]
+  },
+
+  "graveyard": [
+    {"name": "Eliza Thornbury", "dates": "1798–1832", "epitaph": "She scratched at the lid for three days. Nobody heard."},
+    {"name": "Rev. Josiah Crane", "dates": "1756–1801", "epitaph": "He preached about Hell. Now he knows it personally."},
+    {"name": "Agnes Blackwell", "dates": "1684–1712", "epitaph": "They said she was a witch. She said nothing at all."},
+    {"name": "Cpt. Silas Moreau", "dates": "1802–1838", "epitaph": "The sea gave him back, but not all of him."},
+    {"name": "Mary Holloway", "dates": "1845–1863", "epitaph": "She died of a broken heart. The autopsy confirmed it literally."},
+    {"name": "Thomas Fell", "dates": "1710–1745", "epitaph": "He walked into the moors one evening and never returned. His footprints stopped halfway."},
+    {"name": "Dr. Alistair Webb", "dates": "1820–1867", "epitaph": "He spent his career treating the insane. In the end, he joined them."},
+    {"name": "Constance Pettigrew", "dates": "1881–1899", "epitaph": "The last entry in her diary: It stands at the foot of my bed every night now."},
+    {"name": "Samuel Grieve", "dates": "1770–1812", "epitaph": "He built the house. The house kept him."}
+  ],
+
+  "ouijaMessages": [
+    "THEY ARE STILL HERE",
+    "DO NOT TURN AROUND",
+    "THE WALLS REMEMBER EVERYTHING",
+    "YOU WERE NOT INVITED",
+    "LEAVE BEFORE MIDNIGHT",
+    "WE HAVE BEEN WAITING FOR YOU",
+    "THE GROUND IS NOT EMPTY",
+    "SOMEONE IS WATCHING",
+    "THE DOOR WAS NEVER LOCKED",
+    "THREE KNOCKS AT DAWN",
+    "SHE NEVER LEFT THE HOUSE",
+    "COUNT THE SHADOWS CAREFULLY",
+    "THE MIRROR LIES TO YOU",
+    "BENEATH THE SEVENTH STAIR",
+    "YOUR NAME IS ALREADY WRITTEN",
+    "IT FOLLOWED YOU HOME",
+    "CHECK BEHIND THE CURTAIN",
+    "THE WELL IS NOT EMPTY",
+    "THEY BURIED HER WHILE SHE BREATHED",
+    "THE CHILDREN STILL SING AT NIGHT"
+  ],
+
+  "mirrorMessages": [
+    "You are not alone in this room.",
+    "Something stands behind you.",
+    "It sees your reflection too.",
+    "The glass remembers your face.",
+    "Look closer... closer...",
+    "Do not blink.",
+    "It knows your name.",
+    "Turn around. Slowly.",
+    "The face in the glass is not yours."
+  ],
+
+  "faq": [
+    {"q": "What was the deadliest plague in human history?", "a": "The Black Death of 1347-1353 killed an estimated 75-200 million people across Europe, Asia, and North Africa, wiping out roughly 30-60% of Europe's entire population in just six years."},
+    {"q": "Were people really buried alive in Victorian England?", "a": "The fear of premature burial was widespread in Victorian England, leading inventors to create safety coffins with bells, breathing tubes, and escape mechanisms. While confirmed cases are rare, the terror was deeply embedded in Victorian culture."},
+    {"q": "What happened during the Salem Witch Trials of 1692?", "a": "Mass hysteria in colonial Massachusetts led to the accusation of over 200 people of practicing witchcraft. Twenty were executed — nineteen by hanging and one by pressing with heavy stones."},
+    {"q": "How long did the Siege of Leningrad last?", "a": "The Siege of Leningrad lasted 872 days from September 8 1941 to January 27 1944, making it one of the longest and deadliest sieges in recorded history with an estimated 1 million civilian deaths."},
+    {"q": "What was the Dancing Plague of 1518?", "a": "In July 1518, approximately 400 people in Strasbourg danced uncontrollably for weeks without rest. Many collapsed and died from exhaustion, strokes, and heart attacks. The cause remains debated by historians."},
+    {"q": "What was Bedlam asylum really like?", "a": "Bethlem Royal Hospital, known as Bedlam, housed mentally ill patients in horrific conditions from the 1400s onward. Patients were chained, subjected to brutal treatments, and the public could pay a penny to observe them as entertainment."}
+  ]
+}
