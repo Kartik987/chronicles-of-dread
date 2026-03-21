@@ -56,9 +56,26 @@ cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='
 @keyframes fd{0%{transform:translateX(0)}100%{transform:translateX(calc(100vw + 1600px))}}
 
 .vig{position:fixed;inset:0;pointer-events:none;z-index:9998;box-shadow:inset 0 0 250px 100px rgba(0,0,0,.75)}
-.tflash{position:fixed;inset:0;pointer-events:none;z-index:9997;background:rgba(184,196,212,.08);opacity:0}
-.tflash.on{animation:ltn .3s ease-out}
-@keyframes ltn{0%{opacity:0}5%{opacity:1}10%{opacity:.2}15%{opacity:.9}25%{opacity:0}35%{opacity:.5}50%{opacity:0}100%{opacity:0}}
+
+/* THUNDER — prominent, visible everywhere including reader */
+.tflash{position:fixed;inset:0;pointer-events:none;z-index:99990;opacity:0}
+.tflash.on{animation:ltn .6s ease-out}
+@keyframes ltn{
+  0%{opacity:0;background:rgba(184,196,212,.03)}
+  3%{opacity:1;background:rgba(200,210,230,.25)}
+  6%{opacity:.1;background:rgba(184,196,212,.03)}
+  10%{opacity:1;background:rgba(220,225,240,.3)}
+  16%{opacity:0;background:rgba(184,196,212,.02)}
+  22%{opacity:.7;background:rgba(200,210,230,.18)}
+  30%{opacity:0}
+  45%{opacity:.3;background:rgba(184,196,212,.08)}
+  60%{opacity:0}
+  100%{opacity:0}
+}
+/* Lightning bolt SVG overlay */
+.lightning-bolt{position:fixed;pointer-events:none;z-index:99989;opacity:0;transition:none}
+.lightning-bolt.flash{animation:bolt-flash .4s ease-out forwards}
+@keyframes bolt-flash{0%{opacity:0}5%{opacity:.9}12%{opacity:.2}18%{opacity:.7}30%{opacity:0}100%{opacity:0}}
 
 /* BATS */
 .bat{position:fixed;pointer-events:none;z-index:9996;width:40px;height:20px;animation:bf 18s linear infinite;opacity:0}
@@ -480,6 +497,11 @@ nav{padding:0 20px}
 <div class="fog"><div class="fp"></div><div class="fp"></div><div class="fp"></div><div class="fp"></div></div>
 <div class="vig"></div>
 <div class="tflash" id="tf"></div>
+<!-- Lightning bolt visual -->
+<svg class="lightning-bolt" id="lbolt" style="top:0;left:40%;width:120px;height:100vh" viewBox="0 0 120 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M60 0 L45 180 L70 200 L30 450 L55 470 L20 700 L50 500 L25 480 L65 230 L40 210 L60 0Z" fill="rgba(200,210,230,.4)" stroke="rgba(220,225,240,.6)" stroke-width="1"/>
+  <path d="M60 0 L48 160 L68 185 L35 420 L55 445 L25 680 L50 475 L30 455 L63 215 L43 195 L60 0Z" fill="rgba(230,235,250,.15)"/>
+</svg>
 
 <!-- BATS -->
 <div class="bat b1"><div class="bw l"></div><div class="bb"><div class="be"><span></span><span></span></div></div><div class="bw r"></div></div>
@@ -751,12 +773,19 @@ function initAC(){if(AC)return;AC=new(window.AudioContext||window.webkitAudioCon
   SG=AC.createGain();SG.gain.value=.35;SG.connect(AC.destination)}
 
 function autoPlayMusic(){
-  // Start on ANY user gesture — click, touch, scroll, mousemove, keydown
-  const events=['click','touchstart','scroll','mousemove','keydown'];
-  const handler=()=>{if(!audioInit){initAC();audioInit=true;startMusic();startSfxLoops();document.getElementById('abm').classList.add('play');startSouls();startBurnedPaper();startReaderBloodStains()}events.forEach(e=>document.removeEventListener(e,handler))};
-  events.forEach(e=>document.addEventListener(e,handler,{passive:true,once:false}));
+  // Start on ANY user gesture — immediate response
+  const events=['click','touchstart','scroll','mousemove','keydown','pointerdown','touchend'];
+  const handler=()=>{if(!audioInit){initAC();audioInit=true;startMusic();startSfxLoops();document.getElementById('abm').classList.add('play');startSouls();startBurnedPaper();startReaderBloodStains();
+    // Initial horror ambience — witch cackle after 5s, whisper after 12s
+    setTimeout(()=>{if(AC)playWitchCackle()},5000);
+    setTimeout(()=>{if(AC)playWhisper()},12000);
+    setTimeout(()=>{if(AC)playThunder()},20000);
+  }events.forEach(e=>document.removeEventListener(e,handler))};
+  events.forEach(e=>document.addEventListener(e,handler,{passive:true}));
   // Also try on load after a delay (some browsers allow it)
-  setTimeout(()=>{if(!audioInit){try{initAC();audioInit=true;startMusic();startSfxLoops();document.getElementById('abm').classList.add('play');startSouls();startBurnedPaper();startReaderBloodStains()}catch(e){}}},3500);
+  setTimeout(()=>{if(!audioInit){try{initAC();audioInit=true;startMusic();startSfxLoops();document.getElementById('abm').classList.add('play');startSouls();startBurnedPaper();startReaderBloodStains();
+    setTimeout(()=>{if(AC)playWitchCackle()},5000);
+  }catch(e){}}},3500);
 }
 
 // Orchestral string — triple detuned sawtooth, filtered, vibrato + tremolo
@@ -827,12 +856,236 @@ function swTrack(t){curTrack=t;document.querySelectorAll('.tb').forEach(b=>b.cla
 function setMVol(v){mVol=v/100;if(MG)MG.gain.value=mVol}
 
 // SFX
-function playThunder(){if(!AC||!sfxOn.thunder)return;const l=AC.sampleRate*3.5,b=AC.createBuffer(1,l,AC.sampleRate),d=b.getChannelData(0);for(let i=0;i<l;i++)d[i]=(Math.random()*2-1)*Math.exp(-i/(AC.sampleRate*1));const s=AC.createBufferSource();s.buffer=b;const f=AC.createBiquadFilter();f.type='lowpass';f.frequency.value=180;const g=AC.createGain();g.gain.value=.55;g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+3.5);s.connect(f);f.connect(g);g.connect(SG);s.start();const fl=document.getElementById('tf');fl.classList.remove('on');void fl.offsetWidth;fl.classList.add('on');setTimeout(()=>fl.classList.remove('on'),400)}
+function playThunder(){if(!AC||!sfxOn.thunder)return;
+  // Deep rumble — longer, more bass
+  const l=AC.sampleRate*4,b=AC.createBuffer(1,l,AC.sampleRate),d=b.getChannelData(0);
+  for(let i=0;i<l;i++){
+    const env=Math.exp(-i/(AC.sampleRate*1.2));
+    const crack=i<AC.sampleRate*.1?(Math.random()*2-1)*3:0;
+    d[i]=((Math.random()*2-1)*env+crack*Math.exp(-i/(AC.sampleRate*.02)))*.5;
+  }
+  const s=AC.createBufferSource();s.buffer=b;
+  const f=AC.createBiquadFilter();f.type='lowpass';f.frequency.value=160;f.Q.value=.8;
+  const f2=AC.createBiquadFilter();f2.type='peaking';f2.frequency.value=60;f2.gain.value=6;f2.Q.value=.5;
+  const g=AC.createGain();g.gain.value=.7;g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+4);
+  s.connect(f);f.connect(f2);f2.connect(g);g.connect(SG);s.start();
+  // Flash — full screen white pulse
+  const fl=document.getElementById('tf');
+  fl.classList.remove('on');void fl.offsetWidth;fl.classList.add('on');
+  setTimeout(()=>fl.classList.remove('on'),700);
+  // Lightning bolt visual — random position
+  const bolt=document.getElementById('lbolt');
+  bolt.style.left=(15+Math.random()*60)+'%';
+  bolt.style.transform='scaleX('+(Math.random()>.5?1:-1)+')';
+  bolt.classList.remove('flash');void bolt.offsetWidth;bolt.classList.add('flash');
+  setTimeout(()=>bolt.classList.remove('flash'),500);
+}
 function playOwl(){if(!AC||!sfxOn.owl)return;const n=AC.currentTime;[0,.45,.9].forEach(d=>{const o=AC.createOscillator(),g=AC.createGain();o.type='sine';o.frequency.setValueAtTime(520-d*80,n+d);o.frequency.exponentialRampToValueAtTime(360,n+d+.35);g.gain.setValueAtTime(0,n+d);g.gain.linearRampToValueAtTime(.09,n+d+.04);g.gain.exponentialRampToValueAtTime(.001,n+d+.4);o.connect(g);g.connect(SG);o.start(n+d);o.stop(n+d+.45)})}
 function playWhisper(){if(!AC||!sfxOn.whisper)return;const l=AC.sampleRate*2.5,b=AC.createBuffer(1,l,AC.sampleRate),d=b.getChannelData(0);for(let i=0;i<l;i++)d[i]=(Math.random()*2-1)*Math.sin(i/600)*Math.exp(-i/(AC.sampleRate*1.5));const s=AC.createBufferSource();s.buffer=b;const f=AC.createBiquadFilter();f.type='bandpass';f.frequency.value=2200;f.Q.value=3;const g=AC.createGain();g.gain.value=.05;s.connect(f);f.connect(g);g.connect(SG);s.start()}
 function startSfxLoops(){(function st(){setTimeout(()=>{playThunder();st()},20000+Math.random()*35000)})();(function so(){setTimeout(()=>{playOwl();moveOwl();so()},25000+Math.random()*40000)})();(function sw(){setTimeout(()=>{playWhisper();sw()},30000+Math.random()*45000)})()}
 function tgSfx(t){sfxOn[t]=sfxOn[t]?0:1;document.querySelector(`[data-s="${t}"]`).classList.toggle('on')}
 function toggleAP(){document.getElementById('aex').classList.toggle('show');if(!audioInit){initAC();audioInit=true;startMusic();startSfxLoops();document.getElementById('abm').classList.add('play')}}
+
+// ═══ WITCH CACKLE — soft, eerie, from behind ═══
+// Synthesized as modulated high-frequency bursts with reverb
+function playWitchCackle(){
+  if(!AC)return;
+  const now=AC.currentTime;
+  // Multiple short "ha" bursts with descending pitch — like a cackle
+  const burstCount=5+Math.floor(Math.random()*4);
+  for(let i=0;i<burstCount;i++){
+    const t=now+i*.12+Math.random()*.03;
+    const o=AC.createOscillator();
+    const o2=AC.createOscillator();
+    const g=AC.createGain();
+    const f=AC.createBiquadFilter();
+
+    // Breathy formant — sine + noise-like
+    o.type='sine';
+    o.frequency.setValueAtTime(600-i*25+Math.random()*50,t);
+    o.frequency.exponentialRampToValueAtTime(400-i*20,t+.08);
+
+    // Second harmonic for richness
+    o2.type='triangle';
+    o2.frequency.setValueAtTime(1200-i*40,t);
+    o2.frequency.exponentialRampToValueAtTime(800-i*30,t+.08);
+
+    f.type='bandpass';f.frequency.value=900+Math.random()*300;f.Q.value=2;
+
+    // Soft volume — haunting, not jarring
+    g.gain.setValueAtTime(0,t);
+    g.gain.linearRampToValueAtTime(.025,t+.01);
+    g.gain.exponentialRampToValueAtTime(.001,t+.1);
+
+    o.connect(f);o2.connect(f);f.connect(g);g.connect(SG);
+    o.start(t);o.stop(t+.12);o2.start(t);o2.stop(t+.12);
+  }
+  // Trailing eerie echo — descending whistle
+  const echo=AC.createOscillator();
+  const eg=AC.createGain();
+  echo.type='sine';
+  echo.frequency.setValueAtTime(800,now+burstCount*.12);
+  echo.frequency.exponentialRampToValueAtTime(200,now+burstCount*.12+1.5);
+  eg.gain.setValueAtTime(.015,now+burstCount*.12);
+  eg.gain.exponentialRampToValueAtTime(.001,now+burstCount*.12+1.5);
+  echo.connect(eg);eg.connect(SG);
+  echo.start(now+burstCount*.12);echo.stop(now+burstCount*.12+1.6);
+}
+
+// ═══ FOOTSTEPS — slow, approaching, getting louder ═══
+function playFootsteps(callback){
+  if(!AC)return;
+  const now=AC.currentTime;
+  const steps=8; // 8 footsteps
+  for(let i=0;i<steps;i++){
+    const t=now+i*.7; // Slow, deliberate pace
+    const vol=.02+i*.005; // Getting louder (approaching)
+
+    // Each step: low thud + scrape
+    const buf=AC.createBuffer(1,AC.sampleRate*.15,AC.sampleRate);
+    const d=buf.getChannelData(0);
+    for(let j=0;j<d.length;j++){
+      d[j]=(Math.random()*2-1)*Math.exp(-j/(AC.sampleRate*.03))*.8;
+    }
+    const s=AC.createBufferSource();s.buffer=buf;
+    const f=AC.createBiquadFilter();f.type='lowpass';f.frequency.value=120+i*10;f.Q.value=1;
+    const g=AC.createGain();g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.001,t+.2);
+    s.connect(f);f.connect(g);g.connect(SG);s.start(t);
+
+    // Subtle scrape after each step
+    const scr=AC.createBufferSource();
+    const scrBuf=AC.createBuffer(1,AC.sampleRate*.08,AC.sampleRate);
+    const sd=scrBuf.getChannelData(0);
+    for(let j=0;j<sd.length;j++)sd[j]=(Math.random()*2-1)*Math.exp(-j/(AC.sampleRate*.02))*.3;
+    scr.buffer=scrBuf;
+    const sf=AC.createBiquadFilter();sf.type='highpass';sf.frequency.value=2000;
+    const sg=AC.createGain();sg.gain.setValueAtTime(vol*.3,t+.08);sg.gain.exponentialRampToValueAtTime(.001,t+.15);
+    scr.connect(sf);sf.connect(sg);sg.connect(SG);scr.start(t+.08);
+  }
+  // Callback after all footsteps complete
+  if(callback)setTimeout(callback,steps*700+200);
+}
+
+// ═══ GIRL SCREAM — sharp, haunting, not deafening ═══
+function playGirlScream(){
+  if(!AC)return;
+  const now=AC.currentTime;
+
+  // Main scream: rising sine with harmonics
+  const freqs=[800,1200,1600,2000]; // Formant frequencies
+  freqs.forEach((freq,i)=>{
+    const o=AC.createOscillator();
+    const g=AC.createGain();
+    o.type=i===0?'sawtooth':'sine';
+    o.frequency.setValueAtTime(freq*.7,now);
+    o.frequency.linearRampToValueAtTime(freq,now+.08);
+    o.frequency.linearRampToValueAtTime(freq*1.1,now+.5);
+    o.frequency.exponentialRampToValueAtTime(freq*.5,now+1.2);
+
+    const vol=[.06,.03,.02,.015][i];
+    g.gain.setValueAtTime(0,now);
+    g.gain.linearRampToValueAtTime(vol,now+.05);
+    g.gain.setValueAtTime(vol,now+.3);
+    g.gain.exponentialRampToValueAtTime(.001,now+1.2);
+
+    const f=AC.createBiquadFilter();
+    f.type='bandpass';f.frequency.value=freq;f.Q.value=3;
+
+    o.connect(f);f.connect(g);g.connect(SG);
+    o.start(now);o.stop(now+1.3);
+  });
+
+  // Breath/noise component
+  const nBuf=AC.createBuffer(1,AC.sampleRate*1,AC.sampleRate);
+  const nd=nBuf.getChannelData(0);
+  for(let i=0;i<nd.length;i++){
+    const env=i<AC.sampleRate*.05?i/(AC.sampleRate*.05):Math.exp(-(i-AC.sampleRate*.05)/(AC.sampleRate*.4));
+    nd[i]=(Math.random()*2-1)*env*.3;
+  }
+  const ns=AC.createBufferSource();ns.buffer=nBuf;
+  const nf=AC.createBiquadFilter();nf.type='bandpass';nf.frequency.value=3000;nf.Q.value=1;
+  const ng=AC.createGain();ng.gain.value=.04;
+  ns.connect(nf);nf.connect(ng);ng.connect(SG);ns.start(now);
+}
+
+// ═══ BLOOD CASCADE — full screen blood flow after scream ═══
+function trigBloodCascade(){
+  const rb=document.getElementById('rb');if(!rb)return;
+  // Create multiple streaming blood flows from top
+  const fx=document.getElementById('rdrfx');
+  for(let i=0;i<12;i++){
+    const flow=document.createElement('div');
+    flow.style.cssText=`position:absolute;top:0;left:${5+Math.random()*90}%;width:${2+Math.random()*4}px;height:0;
+    background:linear-gradient(180deg,rgba(192,57,43,.6),rgba(139,26,26,.4) 40%,rgba(139,26,26,.15) 80%,transparent);
+    border-radius:0 0 50% 50%;pointer-events:none;z-index:2;
+    animation:bloodCascadeFlow ${2+Math.random()*2}s ease-in ${i*.15}s forwards`;
+    fx.appendChild(flow);
+    setTimeout(()=>flow.remove(),6000);
+  }
+  // Splatter at random points
+  for(let i=0;i<6;i++){
+    const splat=document.createElement('div');
+    const size=30+Math.random()*60;
+    splat.style.cssText=`position:absolute;left:${Math.random()*100}%;top:${Math.random()*100}%;
+    width:${size}px;height:${size}px;border-radius:50%;pointer-events:none;z-index:2;
+    background:radial-gradient(circle,rgba(192,57,43,.3),rgba(139,26,26,.15) 50%,transparent 70%);
+    animation:bloodSplatAppear 3s ease-out ${.5+i*.2}s forwards;opacity:0`;
+    fx.appendChild(splat);
+    setTimeout(()=>splat.remove(),5000);
+  }
+
+  // Subtle red tint on entire reader
+  const rdr=document.getElementById('rdr');
+  rdr.style.transition='box-shadow 1s';
+  rdr.style.boxShadow='inset 0 0 200px 50px rgba(139,26,26,.15)';
+  setTimeout(()=>{rdr.style.boxShadow='none';rdr.style.transition='box-shadow 2s'},3000);
+
+  // Horror background sound — wet dripping
+  if(AC){
+    for(let i=0;i<5;i++){
+      setTimeout(()=>{
+        const buf=AC.createBuffer(1,AC.sampleRate*.2,AC.sampleRate),d=buf.getChannelData(0);
+        for(let j=0;j<d.length;j++)d[j]=(Math.random()*2-1)*Math.exp(-j/(AC.sampleRate*.04));
+        const s=AC.createBufferSource();s.buffer=buf;
+        const f=AC.createBiquadFilter();f.type='lowpass';f.frequency.value=500;
+        const g=AC.createGain();g.gain.value=.03;
+        s.connect(f);f.connect(g);g.connect(SG);s.start();
+      },500+i*300);
+    }
+  }
+}
+
+// ═══ THE SEQUENCE: Footsteps → Scream → Blood Cascade ═══
+// Triggered at irregular intervals during reading
+let screamSequenceTimeout=null;
+function scheduleScreamSequence(){
+  // 50-100 seconds into reading
+  screamSequenceTimeout=setTimeout(()=>{
+    playFootsteps(()=>{
+      // After footsteps finish, brief pause then scream
+      setTimeout(()=>{
+        playGirlScream();
+        // Blood cascade starts 0.3s into the scream
+        setTimeout(trigBloodCascade,300);
+      },400);
+    });
+    // Schedule next one (only once more per reading session — don't overdo it)
+    screamSequenceTimeout=setTimeout(()=>{
+      playFootsteps(()=>{
+        setTimeout(()=>{
+          playGirlScream();
+          setTimeout(trigBloodCascade,300);
+        },400);
+      });
+    },80000+Math.random()*60000);
+  },50000+Math.random()*50000);
+}
+
+// Inject CSS keyframes for blood cascade
+document.head.appendChild(Object.assign(document.createElement('style'),{textContent:`
+@keyframes bloodCascadeFlow{0%{height:0;opacity:.8}60%{height:60vh;opacity:.5}100%{height:100vh;opacity:0}}
+@keyframes bloodSplatAppear{0%{transform:scale(0);opacity:0}30%{transform:scale(1);opacity:.5}100%{transform:scale(1.2);opacity:0}}
+`}));
 
 // ─── OWL ───
 function moveOwl(){const o=document.getElementById('owl'),ps=[{top:'120px',right:'60px',left:'auto'},{top:'200px',right:'auto',left:'40px'},{top:'350px',right:'80px',left:'auto'},{top:'500px',right:'auto',left:'60px'}],r=ps[Math.floor(Math.random()*ps.length)];o.style.top=r.top;o.style.right=r.right;o.style.left=r.left}
@@ -857,7 +1110,7 @@ function trigAsh(){const ov=document.getElementById('ashov');ov.innerHTML='';ov.
   setTimeout(()=>{ov.classList.remove('on');ov.innerHTML=''},2000)}
 
 // ─── READER HORROR EFFECTS (during reading) ───
-let readerFxInterval=null;
+let readerFxInterval=null,witchCackleInterval=null;
 function startReaderFx(){
   const fx=document.getElementById('rdrfx');
   // Random events while reading
@@ -876,7 +1129,6 @@ function startReaderFx(){
       wh.style.transition='right 3s cubic-bezier(.22,1,.36,1),opacity 1s';wh.style.right='0px';
       setTimeout(()=>{wh.style.right='-80px';setTimeout(()=>wh.classList.remove('show'),1000)},2500);
     }else if(roll<.65){// Bat swoop across reader
-      // Just trigger the existing bat animation feel
       const fx2=document.getElementById('rdrfx');const bat=document.createElement('div');
       bat.style.cssText='position:absolute;font-size:30px;top:'+(20+Math.random()*60)+'%;left:-50px;animation:bf 4s linear forwards;pointer-events:none';
       bat.textContent='🦇';fx2.appendChild(bat);setTimeout(()=>bat.remove(),4500);
@@ -884,8 +1136,20 @@ function startReaderFx(){
       if(audioInit)playWhisper();
     }
   },8000+Math.random()*12000);
+
+  // Witch cackle at irregular intervals (every 25-55 seconds) — soft, from behind
+  witchCackleInterval=setInterval(()=>{
+    if(audioInit && Math.random()<.7) playWitchCackle();
+  },25000+Math.random()*30000);
+
+  // Start the footsteps → scream → blood cascade sequence
+  scheduleScreamSequence();
 }
-function stopReaderFx(){clearInterval(readerFxInterval);document.getElementById('rdrfx').innerHTML='';document.getElementById('whl').classList.remove('show');document.getElementById('whr').classList.remove('show')}
+function stopReaderFx(){
+  clearInterval(readerFxInterval);clearInterval(witchCackleInterval);clearTimeout(screamSequenceTimeout);
+  document.getElementById('rdrfx').innerHTML='';
+  document.getElementById('whl').classList.remove('show');document.getElementById('whr').classList.remove('show');
+}
 
 // ─── ARTICLE OPEN/CLOSE ───
 function openArticle(idx){
