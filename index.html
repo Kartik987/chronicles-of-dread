@@ -415,6 +415,55 @@ nav{padding:0 20px}
 .rtxt p{font-size:16px}
 .ggr{grid-template-columns:repeat(2,1fr)}
 }
+
+/* ═══ WANDERING SOULS (landing page) ═══ */
+.souls-c{position:fixed;inset:0;pointer-events:none;z-index:3;overflow:hidden}
+.soul{position:absolute;opacity:0;animation:soul-wander linear forwards}
+.soul-body{width:40px;height:70px;position:relative;filter:blur(1.5px)}
+.soul-head{width:20px;height:20px;background:radial-gradient(circle,rgba(255,255,255,.15) 0%,rgba(255,255,255,.05) 50%,transparent 70%);border-radius:50%;margin:0 auto 2px}
+.soul-torso{width:30px;height:35px;margin:0 auto;background:linear-gradient(180deg,rgba(255,255,255,.1) 0%,rgba(200,200,220,.04) 60%,transparent 100%);border-radius:40% 40% 60% 60%;position:relative}
+.soul-torso::after{content:'';position:absolute;bottom:-12px;left:50%;transform:translateX(-50%);width:40px;height:16px;background:radial-gradient(ellipse,rgba(255,255,255,.04) 0%,transparent 70%);border-radius:50%}
+.soul-face{position:absolute;top:5px;left:50%;transform:translateX(-50%);width:12px;display:flex;gap:4px;justify-content:center}
+.soul-eye{width:3px;height:4px;background:rgba(180,200,220,.2);border-radius:50%}
+.soul-glow{position:absolute;inset:-20px;background:radial-gradient(circle,rgba(184,196,212,.06) 0%,transparent 60%);border-radius:50%;animation:soul-pulse 4s ease-in-out infinite}
+@keyframes soul-pulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.1)}}
+@keyframes soul-wander{
+  0%{opacity:0;transform:translate(0,0) scale(.8)}
+  8%{opacity:.7}
+  20%{transform:translate(var(--sx1),var(--sy1)) scale(1)}
+  40%{transform:translate(var(--sx2),var(--sy2)) scale(.95);opacity:.5}
+  60%{transform:translate(var(--sx3),var(--sy3)) scale(1.05);opacity:.7}
+  80%{transform:translate(var(--sx4),var(--sy4)) scale(.9);opacity:.4}
+  92%{opacity:.3}
+  100%{opacity:0;transform:translate(var(--sx5),var(--sy5)) scale(.7)}
+}
+
+/* ═══ BLOOD STAINS IN READER ═══ */
+.blood-stain{position:absolute;pointer-events:none;opacity:0;z-index:1}
+.blood-stain.appear{animation:stain-appear 6s ease-in-out forwards}
+@keyframes stain-appear{0%{opacity:0;transform:scale(.3)}15%{opacity:.12}50%{opacity:.08}85%{opacity:.06}100%{opacity:0;transform:scale(1)}}
+.blood-stain svg{width:100%;height:100%}
+
+/* ═══ BURNED PAPER POPUP (landing page only) ═══ */
+.burned-paper{position:fixed;z-index:10007;pointer-events:none;opacity:0;transition:opacity 1s,transform 1s;transform:translateY(20px) rotate(-2deg)}
+.burned-paper.show{opacity:1;pointer-events:auto;transform:translateY(0) rotate(-1deg)}
+.bp-inner{width:320px;max-width:85vw;padding:28px 24px 24px;position:relative;background:linear-gradient(165deg,#2a2218 0%,#1e1a14 40%,#1a1610 100%);border:1px solid rgba(139,26,26,.2);box-shadow:0 20px 60px rgba(0,0,0,.8),0 0 40px rgba(139,26,26,.1);overflow:hidden}
+.bp-inner::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='4'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E");opacity:.8}
+/* Burned edges */
+.bp-inner::after{content:'';position:absolute;inset:-2px;background:
+  radial-gradient(ellipse 40% 30% at 0% 0%,rgba(8,8,8,.95) 0%,transparent 70%),
+  radial-gradient(ellipse 35% 25% at 100% 0%,rgba(8,8,8,.9) 0%,transparent 65%),
+  radial-gradient(ellipse 45% 35% at 100% 100%,rgba(8,8,8,.95) 0%,transparent 70%),
+  radial-gradient(ellipse 30% 40% at 0% 100%,rgba(8,8,8,.85) 0%,transparent 60%);
+  pointer-events:none}
+.bp-ember-edge{position:absolute;pointer-events:none}
+.bp-ember-edge.top{top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,rgba(192,117,42,.4),transparent 30%,transparent 70%,rgba(192,117,42,.3))}
+.bp-ember-edge.bottom{bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent 20%,rgba(192,117,42,.3) 50%,transparent 80%)}
+.bp-label{font-family:var(--fh);font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--blood);margin-bottom:8px;position:relative;z-index:1}
+.bp-title{font-family:var(--fg);font-size:18px;color:var(--ivory);margin-bottom:8px;position:relative;z-index:1;line-height:1.2}
+.bp-text{font-family:var(--fb);font-size:13px;color:var(--dust);line-height:1.7;position:relative;z-index:1}
+.bp-close{position:absolute;top:8px;right:10px;background:none;border:none;color:var(--ash);font-size:16px;cursor:pointer;z-index:2;pointer-events:auto;transition:color .3s}.bp-close:hover{color:var(--blood-glow)}
+.bp-seal{position:absolute;bottom:10px;right:14px;font-family:var(--fg);font-size:20px;color:rgba(139,26,26,.15);z-index:1}
 </style>
 </head>
 <body>
@@ -444,6 +493,20 @@ nav{padding:0 20px}
 
 <!-- DUST -->
 <div class="dustc" id="dustc"></div>
+<!-- SOULS (landing page only) -->
+<div class="souls-c" id="soulsc"></div>
+<!-- BURNED PAPER POPUP (landing page only) -->
+<div class="burned-paper" id="bpaper" style="bottom:30px;left:30px">
+<div class="bp-inner">
+<button class="bp-close" onclick="closeBP()">✕</button>
+<div class="bp-ember-edge top"></div>
+<div class="bp-ember-edge bottom"></div>
+<div class="bp-label">☠ From the Archives</div>
+<div class="bp-title" id="bpTitle"></div>
+<div class="bp-text" id="bpText"></div>
+<div class="bp-seal">❧</div>
+</div>
+</div>
 <!-- LAMP -->
 <div class="lamp-glow" id="lg"></div>
 <!-- BLOOD SPLASH -->
@@ -598,6 +661,8 @@ function boot(){
   renderSchemas();renderHero();renderFeatured();renderGrid();
   renderGazette();renderTimeline();renderCategories();
   initReveals();autoPlayMusic();
+  // Start souls and burned paper even before audio (they don't need audio)
+  setTimeout(()=>{startSouls();startBurnedPaper()},4000);
 }
 
 // ─── SCHEMAS (SEO) ───
@@ -668,29 +733,60 @@ function initReveals(){
 }
 
 // ═══ WEB AUDIO — GOTHIC OPERA ORCHESTRA ═══
-let AC=null,MG=null,SG=null,curTrack='requiem',audioInit=false,mNodes=[],sfxOn={thunder:1,owl:1,whisper:1},mVol=.20;
+let AC=null,MG=null,SG=null,RV=null,curTrack='requiem',audioInit=false,mNodes=[],sfxOn={thunder:1,owl:1,whisper:1},mVol=.20;
 
-function initAC(){if(AC)return;AC=new(window.AudioContext||window.webkitAudioContext)();MG=AC.createGain();MG.gain.value=mVol;MG.connect(AC.destination);SG=AC.createGain();SG.gain.value=.35;SG.connect(AC.destination)}
+function initAC(){if(AC)return;AC=new(window.AudioContext||window.webkitAudioContext)();
+  // Create reverb for cathedral-like resonance
+  RV=AC.createConvolver();
+  const rvLen=AC.sampleRate*3,rvBuf=AC.createBuffer(2,rvLen,AC.sampleRate);
+  for(let ch=0;ch<2;ch++){const d=rvBuf.getChannelData(ch);for(let i=0;i<rvLen;i++){d[i]=(Math.random()*2-1)*Math.pow(1-i/rvLen,2.5)}}
+  RV.buffer=rvBuf;
+  const rvGain=AC.createGain();rvGain.gain.value=.35;
+  const dryGain=AC.createGain();dryGain.gain.value=.7;
+  MG=AC.createGain();MG.gain.value=mVol;
+  // Dry path
+  MG.connect(dryGain);dryGain.connect(AC.destination);
+  // Wet/reverb path
+  MG.connect(RV);RV.connect(rvGain);rvGain.connect(AC.destination);
+  SG=AC.createGain();SG.gain.value=.35;SG.connect(AC.destination)}
 
 function autoPlayMusic(){
-  // Auto-init on first user interaction (required by browsers)
-  const handler=()=>{if(!audioInit){initAC();audioInit=true;startMusic();startSfxLoops();document.getElementById('abm').classList.add('play')}document.removeEventListener('click',handler);document.removeEventListener('touchstart',handler);document.removeEventListener('scroll',handler)};
-  document.addEventListener('click',handler,{once:false});
-  document.addEventListener('touchstart',handler,{once:false});
-  document.addEventListener('scroll',handler,{passive:true,once:false});
+  // Start on ANY user gesture — click, touch, scroll, mousemove, keydown
+  const events=['click','touchstart','scroll','mousemove','keydown'];
+  const handler=()=>{if(!audioInit){initAC();audioInit=true;startMusic();startSfxLoops();document.getElementById('abm').classList.add('play');startSouls();startBurnedPaper();startReaderBloodStains()}events.forEach(e=>document.removeEventListener(e,handler))};
+  events.forEach(e=>document.addEventListener(e,handler,{passive:true,once:false}));
+  // Also try on load after a delay (some browsers allow it)
+  setTimeout(()=>{if(!audioInit){try{initAC();audioInit=true;startMusic();startSfxLoops();document.getElementById('abm').classList.add('play');startSouls();startBurnedPaper();startReaderBloodStains()}catch(e){}}},3500);
 }
 
-// Orchestral string — filtered sawtooth with vibrato
+// Orchestral string — triple detuned sawtooth, filtered, vibrato + tremolo
 function mkStr(f,g,atk,fc){
-  const o1=AC.createOscillator(),o2=AC.createOscillator(),gn=AC.createGain(),fl=AC.createBiquadFilter(),vib=AC.createOscillator(),vg=AC.createGain();
-  o1.type='sawtooth';o1.frequency.value=f;o2.type='sawtooth';o2.frequency.value=f*1.002;
-  fl.type='lowpass';fl.frequency.value=fc||f*3;fl.Q.value=.7;
-  vib.type='sine';vib.frequency.value=4.5+Math.random();vg.gain.value=f*.003;
-  vib.connect(vg);vg.connect(o1.frequency);vg.connect(o2.frequency);
-  gn.gain.setValueAtTime(0,AC.currentTime);gn.gain.linearRampToValueAtTime(g,AC.currentTime+(atk||3));
-  o1.connect(fl);o2.connect(fl);fl.connect(gn);gn.connect(MG);
-  o1.start();o2.start();vib.start();
-  return{ns:[o1,o2,vib],g:gn};
+  const o1=AC.createOscillator(),o2=AC.createOscillator(),o3=AC.createOscillator();
+  const gn=AC.createGain(),fl=AC.createBiquadFilter(),fl2=AC.createBiquadFilter();
+  const vib=AC.createOscillator(),vg=AC.createGain();
+  const trem=AC.createOscillator(),tg=AC.createGain();
+  // Triple detuned for ensemble width
+  o1.type='sawtooth';o1.frequency.value=f;
+  o2.type='sawtooth';o2.frequency.value=f*1.003;
+  o3.type='sawtooth';o3.frequency.value=f*0.997;
+  // Double low-pass for warm, rounded string tone
+  fl.type='lowpass';fl.frequency.value=fc||f*2.5;fl.Q.value=.5;
+  fl2.type='lowpass';fl2.frequency.value=(fc||f*2.5)*1.2;fl2.Q.value=.3;
+  // Natural vibrato (bow wobble)
+  vib.type='sine';vib.frequency.value=4.8+Math.random()*.8;
+  vg.gain.value=f*.004;
+  vib.connect(vg);vg.connect(o1.frequency);vg.connect(o2.frequency);vg.connect(o3.frequency);
+  // Gentle tremolo (bow pressure variation)
+  trem.type='sine';trem.frequency.value=.3+Math.random()*.2;
+  tg.gain.value=g*.15;
+  trem.connect(tg);tg.connect(gn.gain);
+  // Slow orchestral swell
+  gn.gain.setValueAtTime(0,AC.currentTime);
+  gn.gain.linearRampToValueAtTime(g*.3,AC.currentTime+1);
+  gn.gain.linearRampToValueAtTime(g,AC.currentTime+(atk||4));
+  o1.connect(fl);o2.connect(fl);o3.connect(fl);fl.connect(fl2);fl2.connect(gn);gn.connect(MG);
+  o1.start();o2.start();o3.start();vib.start();trem.start();
+  return{ns:[o1,o2,o3,vib,trem],g:gn};
 }
 
 // Choir/voice pad
@@ -847,6 +943,180 @@ window.addEventListener('scroll',()=>{const h=document.querySelector('.hc'),y=sc
 document.getElementById('mb').addEventListener('click',function(){const l=document.querySelector('.nl');if(l.style.display==='flex')l.style.display='none';else l.style.cssText='display:flex;position:fixed;top:70px;left:0;right:0;background:rgba(8,8,8,.98);flex-direction:column;padding:24px 40px;gap:20px;border-bottom:1px solid rgba(61,51,40,.3);z-index:9999'});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeArticle();['ouijaO','mirrorO','deathO','graveO'].forEach(closeOv)}if(e.key==='l'||e.key==='L')tgLamp()});
 let fs=true;window.addEventListener('scroll',()=>{if(fs&&scrollY>200){fs=false;if(audioInit)setTimeout(playThunder,1000)}},{passive:true});
+
+// ═══════════════════════════════════════════
+// WANDERING SOULS (landing page only)
+// Transparent white spectral figures that
+// drift across the viewport and fade away
+// ═══════════════════════════════════════════
+let soulInterval=null;
+function startSouls(){
+  spawnSoul(); // First one immediately
+  soulInterval=setInterval(()=>{
+    // Only spawn on landing page, not in reader
+    if(!document.getElementById('rdr').classList.contains('on')){
+      spawnSoul();
+    }
+  },12000+Math.random()*18000); // Every 12-30 seconds
+}
+
+function spawnSoul(){
+  const c=document.getElementById('soulsc');if(!c)return;
+  const soul=document.createElement('div');
+  soul.className='soul';
+  // Random start position along edges
+  const side=Math.random();
+  let startX,startY;
+  if(side<.3){startX=-60;startY=Math.random()*80+'%'}
+  else if(side<.6){startX=window.innerWidth+60;startY=Math.random()*80+'%'}
+  else{startX=Math.random()*100+'%';startY=window.innerHeight+60+'px'}
+  soul.style.left=typeof startX==='number'?startX+'px':startX;
+  soul.style.top=typeof startY==='string'&&startY.includes('%')?startY:startY;
+
+  // Generate wandering path with CSS custom properties
+  const mkOff=()=>(Math.random()*300-150)+'px';
+  soul.style.setProperty('--sx1',mkOff());soul.style.setProperty('--sy1',(Math.random()*-100-50)+'px');
+  soul.style.setProperty('--sx2',mkOff());soul.style.setProperty('--sy2',(Math.random()*-150-80)+'px');
+  soul.style.setProperty('--sx3',mkOff());soul.style.setProperty('--sy3',(Math.random()*-200-100)+'px');
+  soul.style.setProperty('--sx4',mkOff());soul.style.setProperty('--sy4',(Math.random()*-250-120)+'px');
+  soul.style.setProperty('--sx5',mkOff());soul.style.setProperty('--sy5',(Math.random()*-350-150)+'px');
+
+  const dur=15+Math.random()*15;
+  soul.style.animationDuration=dur+'s';
+
+  // Scale variation
+  const sc=.6+Math.random()*.6;
+  soul.innerHTML=`<div class="soul-glow"></div><div class="soul-body" style="transform:scale(${sc})">
+    <div class="soul-head"><div class="soul-face"><div class="soul-eye"></div><div class="soul-eye"></div></div></div>
+    <div class="soul-torso"></div></div>`;
+
+  c.appendChild(soul);
+  setTimeout(()=>soul.remove(),dur*1000+500);
+}
+
+// ═══════════════════════════════════════════
+// BLOOD STAINS IN READER
+// Organic SVG stains that appear/fade during
+// reading at irregular intervals with sound
+// ═══════════════════════════════════════════
+let bloodStainInterval=null;
+function startReaderBloodStains(){/* Initialized but only active when reader is open */}
+
+function spawnBloodStain(){
+  const rb=document.getElementById('rb');if(!rb)return;
+  const stain=document.createElement('div');
+  stain.className='blood-stain';
+  // Random size
+  const size=60+Math.random()*120;
+  stain.style.width=size+'px';stain.style.height=size+'px';
+  // Position at edges or corners to not block text
+  const positions=[
+    {left:'-20px',top:(Math.random()*80+10)+'%'},
+    {right:'-20px',top:(Math.random()*80+10)+'%'},
+    {left:(Math.random()*30)+'%',top:(Math.random()*20)+'%'},
+    {right:(Math.random()*30)+'%',bottom:(Math.random()*20)+'%'},
+  ];
+  const pos=positions[Math.floor(Math.random()*positions.length)];
+  Object.assign(stain.style,pos);
+
+  // Organic blob SVG
+  const r1=30+Math.random()*20,r2=25+Math.random()*20,r3=35+Math.random()*15;
+  stain.innerHTML=`<svg viewBox="0 0 100 100"><defs><filter id="bs${Date.now()}"><feTurbulence baseFrequency=".03" numOctaves="4" seed="${Math.floor(Math.random()*999)}"/><feDisplacementMap in="SourceGraphic" scale="15"/></filter></defs>
+  <ellipse cx="50" cy="50" rx="${r1}" ry="${r2}" fill="rgba(139,26,26,.5)" filter="url(#bs${Date.now()})"/>
+  <ellipse cx="${45+Math.random()*10}" cy="${45+Math.random()*10}" rx="${r3*.6}" ry="${r3*.5}" fill="rgba(139,26,26,.3)"/>
+  <ellipse cx="50" cy="${65+Math.random()*10}" rx="4" ry="${10+Math.random()*15}" fill="rgba(139,26,26,.25)"/></svg>`;
+
+  stain.classList.add('appear');
+  rb.appendChild(stain);
+
+  // Subtle wet sound
+  if(AC){
+    const buf=AC.createBuffer(1,AC.sampleRate*.3,AC.sampleRate),d=buf.getChannelData(0);
+    for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.exp(-i/(AC.sampleRate*.08));
+    const s=AC.createBufferSource();s.buffer=buf;
+    const f=AC.createBiquadFilter();f.type='lowpass';f.frequency.value=400;
+    const g=AC.createGain();g.gain.value=.03;
+    s.connect(f);f.connect(g);g.connect(SG);s.start();
+  }
+
+  setTimeout(()=>stain.remove(),7000);
+}
+
+// Override startReaderFx to include blood stains
+const _origStartReaderFx=startReaderFx;
+startReaderFx=function(){
+  _origStartReaderFx();
+  // Add blood stain spawner during reading
+  bloodStainInterval=setInterval(()=>{
+    if(Math.random()<.4)spawnBloodStain();
+  },10000+Math.random()*15000);
+};
+const _origStopReaderFx=stopReaderFx;
+stopReaderFx=function(){
+  _origStopReaderFx();
+  clearInterval(bloodStainInterval);
+};
+
+// ═══════════════════════════════════════════
+// BURNED PAPER POPUP (landing page only)
+// Half-burned parchment with weird historical
+// facts, appears at irregular intervals
+// ═══════════════════════════════════════════
+let bpTimeout=null,bpShown=false;
+function startBurnedPaper(){
+  scheduleBP();
+}
+
+function scheduleBP(){
+  // First one after 15-25 seconds, then every 40-80 seconds
+  const delay=bpShown?(40000+Math.random()*40000):(15000+Math.random()*10000);
+  bpTimeout=setTimeout(()=>{
+    // Only show on landing page, not in reader or overlays
+    if(!document.getElementById('rdr').classList.contains('on') && !document.querySelector('.ov.on')){
+      showBP();
+    }
+    scheduleBP();
+  },delay);
+}
+
+function showBP(){
+  if(!DATA||!DATA.burnedPaperMessages)return;
+  const msgs=DATA.burnedPaperMessages;
+  const msg=msgs[Math.floor(Math.random()*msgs.length)];
+  document.getElementById('bpTitle').textContent=msg.title;
+  document.getElementById('bpText').textContent=msg.text;
+
+  const bp=document.getElementById('bpaper');
+  // Randomize position
+  const positions=[
+    {bottom:'30px',left:'30px',right:'auto',top:'auto'},
+    {bottom:'30px',right:'30px',left:'auto',top:'auto'},
+    {top:'120px',left:'30px',bottom:'auto',right:'auto'},
+    {top:'120px',right:'30px',bottom:'auto',left:'auto'},
+  ];
+  const pos=positions[Math.floor(Math.random()*positions.length)];
+  Object.assign(bp.style,pos);
+
+  bp.classList.add('show');
+  bpShown=true;
+
+  // Play parchment unfurl sound
+  if(AC){
+    const buf=AC.createBuffer(1,AC.sampleRate*.5,AC.sampleRate),d=buf.getChannelData(0);
+    for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.exp(-i/(AC.sampleRate*.15))*Math.sin(i/200);
+    const s=AC.createBufferSource();s.buffer=buf;
+    const f=AC.createBiquadFilter();f.type='bandpass';f.frequency.value=1500;f.Q.value=1;
+    const g=AC.createGain();g.gain.value=.04;
+    s.connect(f);f.connect(g);g.connect(SG);s.start();
+  }
+
+  // Auto-hide after 12-18 seconds
+  setTimeout(()=>closeBP(),12000+Math.random()*6000);
+}
+
+function closeBP(){
+  document.getElementById('bpaper').classList.remove('show');
+}
 </script>
 </body>
 </html>
