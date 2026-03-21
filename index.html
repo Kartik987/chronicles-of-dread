@@ -291,15 +291,36 @@ footer{background:var(--abyss);border-top:1px solid rgba(61,51,40,.12);padding:7
 .rdr-bdrip{position:absolute;top:0;width:2px;background:linear-gradient(180deg,var(--blood-glow),var(--blood),transparent);border-radius:0 0 50% 50%;animation:rbdrip 4s ease-in forwards;opacity:0}
 @keyframes rbdrip{0%{height:0;opacity:.6}50%{height:var(--rh,150px);opacity:.3}100%{height:var(--rh,150px);opacity:0}}
 
-/* Shadow Girl — cinematic silhouette approaching from behind post */
-.shadow-girl{position:fixed;z-index:10003;pointer-events:none;bottom:0;left:50%;transform:translateX(-50%) scale(.3);opacity:0;transition:opacity 4s cubic-bezier(.22,1,.36,1),transform 8s cubic-bezier(.22,1,.36,1);filter:blur(2px)}
-.shadow-girl.approach{opacity:.12;transform:translateX(-50%) scale(1);filter:blur(0px)}
-.shadow-girl.near{opacity:.18;transform:translateX(-50%) scale(1.1);filter:blur(0px)}
-.shadow-girl.fade{opacity:0;transform:translateX(-50%) scale(1.15);filter:blur(3px);transition:opacity 3s,transform 3s,filter 3s}
+/* BLACK NUN — cinematic silhouette approaching from behind post */
+.shadow-girl{position:fixed;z-index:10003;pointer-events:none;bottom:0;left:50%;transform:translateX(-50%) scale(.25);opacity:0;transition:opacity 5s cubic-bezier(.22,1,.36,1),transform 10s cubic-bezier(.22,1,.36,1);filter:blur(3px)}
+.shadow-girl.approach{opacity:.2;transform:translateX(-50%) scale(.85);filter:blur(1px)}
+.shadow-girl.near{opacity:.28;transform:translateX(-50%) scale(1.05);filter:blur(0px)}
+.shadow-girl.fade{opacity:0;transform:translateX(-50%) scale(1.15);filter:blur(4px);transition:opacity 4s,transform 4s,filter 4s}
 
-/* Lamp glow held by shadow girl */
-.sg-lamp{position:absolute;top:22%;left:62%;width:60px;height:60px;border-radius:50%;background:radial-gradient(circle,rgba(212,160,72,.4) 0%,rgba(212,160,72,.15) 30%,rgba(212,160,72,.03) 60%,transparent 80%);animation:sg-lamp-flicker 3s ease-in-out infinite}
-@keyframes sg-lamp-flicker{0%,100%{opacity:.7;transform:scale(1)}25%{opacity:.5;transform:scale(.95)}50%{opacity:.8;transform:scale(1.05)}75%{opacity:.55;transform:scale(.98)}}
+/* Nun's eerie aura */
+.nun-aura{position:absolute;inset:-40%;border-radius:50%;background:radial-gradient(circle,rgba(139,26,26,.04) 0%,rgba(0,0,0,.02) 40%,transparent 70%);animation:nun-aura-pulse 5s ease-in-out infinite}
+@keyframes nun-aura-pulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:.8;transform:scale(1.08)}}
+
+/* ═══ DEVIL EYES — landing page, appearing from void ═══ */
+.devil-eyes{position:fixed;z-index:5;pointer-events:none;opacity:0;transition:opacity 3s ease-in-out}
+.devil-eyes.show{opacity:1}
+.devil-eyes.hide{opacity:0;transition:opacity 4s ease-in-out}
+.de-inner{position:relative;width:280px;height:160px}
+.de-eye{position:absolute;top:50%;width:28px;height:14px;border-radius:50%;background:radial-gradient(ellipse,rgba(220,40,30,.9) 0%,rgba(180,20,15,.7) 40%,rgba(139,26,26,.3) 70%,transparent 100%);box-shadow:0 0 30px 10px rgba(200,30,20,.3),0 0 60px 20px rgba(139,26,26,.15),0 0 100px 40px rgba(100,15,10,.08);transform:translateY(-50%)}
+.de-eye.left{left:60px}
+.de-eye.right{right:60px}
+.de-pupil{position:absolute;top:50%;left:50%;width:8px;height:10px;background:rgba(10,0,0,.95);border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 4px rgba(0,0,0,.8)}
+/* Eye glow pulse */
+.de-eye{animation:de-glow 3s ease-in-out infinite}
+.de-eye.right{animation-delay:.3s}
+@keyframes de-glow{0%,100%{box-shadow:0 0 30px 10px rgba(200,30,20,.3),0 0 60px 20px rgba(139,26,26,.15)}50%{box-shadow:0 0 40px 15px rgba(220,40,30,.4),0 0 80px 30px rgba(139,26,26,.2),0 0 120px 50px rgba(100,15,10,.1)}}
+/* Face shadow behind the eyes */
+.de-face{position:absolute;inset:0;background:radial-gradient(ellipse 70% 90% at 50% 45%,rgba(15,10,8,.25) 0%,rgba(10,8,6,.15) 40%,transparent 70%);border-radius:40% 40% 50% 50%}
+/* Brow ridge shadow */
+.de-brow{position:absolute;top:25%;left:20%;right:20%;height:20%;background:linear-gradient(180deg,rgba(10,8,6,.2),transparent);border-radius:50%}
+/* Narrow slit animation on blink */
+.de-eye.blink{animation:de-blink .25s ease-in-out}
+@keyframes de-blink{0%,100%{transform:translateY(-50%) scaleY(1)}50%{transform:translateY(-50%) scaleY(.08)}}
 
 
 /* Blood splash on open */
@@ -541,35 +562,57 @@ nav{padding:0 20px}
 <!-- ASH OVERLAY -->
 <div class="ash-overlay" id="ashov"></div>
 
-<!-- SHADOW GIRL (appears during reading — holding a lamp, approaching from distance) -->
+<!-- BLACK NUN (appears during reading — approaching from behind, cinematic shadow) -->
 <div class="shadow-girl" id="sgirl">
-  <!-- Lamp glow -->
-  <div class="sg-lamp"></div>
-  <!-- Girl silhouette SVG — flowing dress, hair, holding lamp arm extended -->
-  <svg viewBox="0 0 200 500" width="200" height="500" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:.85">
-    <!-- Hair flowing -->
-    <path d="M85 40 Q75 20 80 5 Q90 0 100 2 Q115 0 120 5 Q125 20 115 40 Q120 50 125 55 Q130 45 128 35 Q135 50 130 65 Q125 75 120 80" fill="rgba(20,16,12,.9)" stroke="none"/>
-    <!-- Head -->
-    <ellipse cx="100" cy="50" rx="22" ry="28" fill="rgba(20,16,12,.95)"/>
+  <div class="nun-aura"></div>
+  <svg viewBox="0 0 220 600" width="220" height="600" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:.9">
+    <!-- Veil / Wimple — large flowing hood -->
+    <path d="M110 8 Q60 10 45 50 Q30 90 28 140 Q26 180 30 200 L35 210 Q50 200 70 195 L75 180 Q80 140 85 110 Q90 80 100 55 Q105 45 110 42 Q115 45 120 55 Q130 80 135 110 Q140 140 145 180 L150 195 Q170 200 185 210 L190 200 Q194 180 192 140 Q190 90 175 50 Q160 10 110 8Z" fill="rgba(8,6,4,.95)"/>
+    <!-- Head (pale, barely visible) -->
+    <ellipse cx="110" cy="75" rx="25" ry="30" fill="rgba(12,10,8,.98)"/>
+    <!-- Face — deathly pale oval peeking through wimple -->
+    <ellipse cx="110" cy="78" rx="18" ry="22" fill="rgba(30,28,24,.85)"/>
+    <!-- Eyes — dark, sunken, with faint glow -->
+    <ellipse cx="101" cy="73" rx="4" ry="3" fill="rgba(5,3,2,.95)"/>
+    <ellipse cx="119" cy="73" rx="4" ry="3" fill="rgba(5,3,2,.95)"/>
+    <circle cx="101" cy="73" r="1.2" fill="rgba(139,26,26,.25)"/>
+    <circle cx="119" cy="73" r="1.2" fill="rgba(139,26,26,.25)"/>
+    <!-- Mouth — thin dark line -->
+    <path d="M104 86 Q110 88 116 86" stroke="rgba(5,3,2,.6)" stroke-width="1" fill="none"/>
     <!-- Neck -->
-    <rect x="93" y="75" width="14" height="20" rx="5" fill="rgba(20,16,12,.9)"/>
-    <!-- Torso -->
-    <path d="M80 95 Q78 130 75 160 L70 200 Q85 210 100 212 Q115 210 130 200 L125 160 Q122 130 120 95 Q110 88 100 87 Q90 88 80 95Z" fill="rgba(20,16,12,.9)"/>
-    <!-- Left arm (holding lamp, extended forward) -->
-    <path d="M78 100 Q65 115 55 130 Q48 140 45 145 L40 150 Q38 155 42 158 L50 155 Q55 148 60 138 Q68 122 75 110" fill="rgba(20,16,12,.85)" stroke="rgba(35,28,20,.5)" stroke-width=".5"/>
-    <!-- Right arm (down at side) -->
-    <path d="M122 100 Q130 120 135 145 Q137 160 135 175 Q132 178 128 175 Q130 158 128 142 Q124 120 118 105" fill="rgba(20,16,12,.85)"/>
-    <!-- Dress/skirt flowing -->
-    <path d="M70 200 Q60 260 55 320 Q50 380 48 440 Q55 460 70 470 Q85 475 100 478 Q115 475 130 470 Q145 460 152 440 Q150 380 145 320 Q140 260 130 200 Q115 210 100 212 Q85 210 70 200Z" fill="rgba(20,16,12,.9)"/>
-    <!-- Dress tatter details -->
-    <path d="M48 440 Q45 455 50 470 Q55 480 48 490" stroke="rgba(20,16,12,.7)" fill="none" stroke-width="2"/>
-    <path d="M152 440 Q155 455 150 470 Q145 480 152 490" stroke="rgba(20,16,12,.7)" fill="none" stroke-width="2"/>
-    <path d="M75 470 Q72 482 75 495" stroke="rgba(20,16,12,.6)" fill="none" stroke-width="1.5"/>
-    <path d="M125 470 Q128 482 125 495" stroke="rgba(20,16,12,.6)" fill="none" stroke-width="1.5"/>
-    <!-- Subtle eye glint -->
-    <circle cx="92" cy="46" r="1.5" fill="rgba(184,196,212,.15)"/>
-    <circle cx="108" cy="46" r="1.5" fill="rgba(184,196,212,.15)"/>
+    <rect x="102" y="98" width="16" height="18" rx="6" fill="rgba(8,6,4,.95)"/>
+    <!-- Cross hanging from neck -->
+    <rect x="108" y="108" width="4" height="18" rx="1" fill="rgba(50,40,30,.4)"/>
+    <rect x="103" y="113" width="14" height="3" rx="1" fill="rgba(50,40,30,.4)"/>
+    <!-- Torso — rigid, broad shoulders in habit -->
+    <path d="M65 200 Q62 250 60 300 L58 350 Q70 360 90 365 L90 250 Q95 210 100 195 Q105 185 110 182 Q115 185 120 195 Q125 210 130 250 L130 365 Q150 360 162 350 L160 300 Q158 250 155 200 Q145 195 135 192 Q120 188 110 186 Q100 188 85 192 Q75 195 65 200Z" fill="rgba(8,6,4,.95)"/>
+    <!-- Arms — crossed in front, holding rosary -->
+    <path d="M68 210 Q55 240 50 270 Q48 285 52 300 Q56 310 65 315 L80 290 Q85 265 90 245 Q88 230 80 218" fill="rgba(8,6,4,.92)"/>
+    <path d="M152 210 Q165 240 170 270 Q172 285 168 300 Q164 310 155 315 L140 290 Q135 265 130 245 Q132 230 140 218" fill="rgba(8,6,4,.92)"/>
+    <!-- Hands — pale, clasped -->
+    <ellipse cx="98" cy="295" rx="8" ry="5" fill="rgba(35,30,25,.7)"/>
+    <ellipse cx="122" cy="295" rx="8" ry="5" fill="rgba(35,30,25,.7)"/>
+    <!-- Rosary beads -->
+    <circle cx="105" cy="305" r="2" fill="rgba(50,40,30,.3)"/>
+    <circle cx="110" cy="310" r="2" fill="rgba(50,40,30,.3)"/>
+    <circle cx="115" cy="305" r="2" fill="rgba(50,40,30,.3)"/>
+    <circle cx="110" cy="318" r="3" fill="rgba(50,40,30,.35)"/>
+    <!-- Skirt / Habit bottom — long, flowing to ground -->
+    <path d="M58 350 Q52 420 48 480 Q45 520 44 560 Q48 580 60 590 Q80 598 110 600 Q140 598 160 590 Q172 580 176 560 Q175 520 172 480 Q168 420 162 350 Q150 360 130 365 L130 450 Q128 500 125 540 Q120 560 110 565 Q100 560 95 540 Q92 500 90 450 L90 365 Q70 360 58 350Z" fill="rgba(8,6,4,.95)"/>
+    <!-- Bottom hem details -->
+    <path d="M44 560 Q42 575 46 590 Q50 596 44 600" stroke="rgba(8,6,4,.7)" fill="none" stroke-width="2"/>
+    <path d="M176 560 Q178 575 174 590 Q170 596 176 600" stroke="rgba(8,6,4,.7)" fill="none" stroke-width="2"/>
   </svg>
+</div>
+
+<!-- DEVIL EYES (landing page — appear from the void at irregular intervals) -->
+<div class="devil-eyes" id="devilEyes" style="top:30%;left:50%;transform:translate(-50%,-50%)">
+  <div class="de-inner">
+    <div class="de-face"></div>
+    <div class="de-brow"></div>
+    <div class="de-eye left"><div class="de-pupil"></div></div>
+    <div class="de-eye right"><div class="de-pupil"></div></div>
+  </div>
 </div>
 
 
@@ -1733,19 +1776,276 @@ playGirlScream=function(){
 const _origInitAC=initAC;
 initAC=function(){_origInitAC();loadScreamAudio()};
 
-// Start wolf howls when audio initializes
+// ═══════════════════════════════════════════════════════════════
+// EXTERNAL MP3 AUDIO SYSTEM
+// ═══════════════════════════════════════════════════════════════
+// 
+// TO ADD REAL SOUNDS: Place MP3 files in the same folder as
+// index.html with these exact filenames:
+//
+//   wolf-howl.mp3        — Real wolf howl
+//   witch-watching.mp3   — Woman's voice: "I am watching you"
+//   witch-come.mp3       — Woman's voice: "Come here"  
+//   girl-scream.mp3      — Real girl scream
+//   nun-whisper.mp3      — Eerie nun whisper/prayer
+//
+// The system will automatically load and use them.
+// If a file is missing, it falls back to synthesized sound.
+//
+// RECOMMENDED FREE SOURCES:
+//   freesound.org (search: wolf howl, creepy whisper, girl scream)
+//   pixabay.com/sound-effects (royalty-free horror sounds)
+//   mixkit.co/free-sound-effects/horror
+// ═══════════════════════════════════════════════════════════════
+
+const audioFiles={};
+const audioFileNames=['wolf-howl','witch-watching','witch-come','girl-scream','nun-whisper'];
+
+async function loadAudioFiles(){
+  if(!AC)return;
+  for(const name of audioFileNames){
+    try{
+      const resp=await fetch(name+'.mp3');
+      if(!resp.ok)continue;
+      const arrayBuf=await resp.arrayBuffer();
+      audioFiles[name]=await AC.decodeAudioData(arrayBuf);
+      console.log('Loaded:',name+'.mp3');
+    }catch(e){/* File not found — will use synthesis fallback */}
+  }
+}
+
+function playAudioFile(name,volume){
+  if(!AC||!audioFiles[name])return false;
+  const src=AC.createBufferSource();
+  src.buffer=audioFiles[name];
+  const g=AC.createGain();
+  g.gain.value=volume||.15;
+  src.connect(g);g.connect(SG);
+  src.start();
+  return true;
+}
+
+// Override wolf howl to use MP3 if available
+const _synthWolf=playWolfHowl;
+playWolfHowl=function(){
+  if(!playAudioFile('wolf-howl',.12)) _synthWolf();
+};
+
+// Override girl scream to use MP3 if available  
+const _synthScream=playGirlScream;
+playGirlScream=function(){
+  if(!playAudioFile('girl-scream',.12)) _synthScream();
+};
+
+// ═══════════════════════════════════════════════
+// WITCH VOICE — "I am watching you" / "Come here"
+// Uses real MP3 if available, synthesis fallback
+// ═══════════════════════════════════════════════
+function playWitchVoice(){
+  if(!AC)return;
+  // Try real audio first
+  const phrases=['witch-watching','witch-come'];
+  const chosen=phrases[Math.floor(Math.random()*phrases.length)];
+  if(playAudioFile(chosen,.1))return;
+
+  // Synthesis fallback: eerie whispered tones (not speech — atmospheric)
+  const now=AC.currentTime;
+  // Breathy, ghostly whisper-like texture
+  const dur=3;
+  const nLen=AC.sampleRate*dur;
+  const nBuf=AC.createBuffer(1,nLen,AC.sampleRate);
+  const nd=nBuf.getChannelData(0);
+  for(let i=0;i<nLen;i++){
+    const t=i/AC.sampleRate;
+    // Envelope: fade in, sustain, fade out
+    let env=0;
+    if(t<.5) env=t/.5;
+    else if(t<2) env=1;
+    else env=Math.max(0,(dur-t)/(dur-2));
+    // Whisper formants — simulate "watching" vowel shapes
+    const f1=300+100*Math.sin(t*2);
+    const f2=1800+200*Math.sin(t*1.5);
+    const voiced=Math.sin(2*Math.PI*f1*t)*.2+Math.sin(2*Math.PI*f2*t)*.1;
+    const breath=(Math.random()*2-1)*.5;
+    nd[i]=(voiced*.3+breath*.7)*env*.15;
+  }
+  const ns=AC.createBufferSource();ns.buffer=nBuf;
+  const nf=AC.createBiquadFilter();nf.type='bandpass';nf.frequency.value=2000;nf.Q.value=1.5;
+  const ng=AC.createGain();ng.gain.value=.04;
+  ns.connect(nf);nf.connect(ng);ng.connect(SG);ns.start();
+}
+
+// Witch voice loop — irregular intervals everywhere
+function startWitchVoiceLoop(){
+  (function sched(){
+    setTimeout(()=>{
+      if(audioInit)playWitchVoice();
+      sched();
+    },40000+Math.random()*60000); // Every 40-100 seconds
+  })();
+  // First after 25-40 seconds
+  setTimeout(()=>{if(audioInit)playWitchVoice()},25000+Math.random()*15000);
+}
+
+// ═══════════════════════════════════════════════
+// DEVIL EYES — landing page, irregular intervals
+// Glowing red eyes appear from the void, blink,
+// then dissolve back into darkness
+// ═══════════════════════════════════════════════
+let devilEyesActive=false;
+function trigDevilEyes(){
+  if(devilEyesActive)return;
+  // Only on landing page
+  if(document.getElementById('rdr').classList.contains('on'))return;
+  devilEyesActive=true;
+
+  const el=document.getElementById('devilEyes');
+  // Random position
+  const posX=15+Math.random()*70;
+  const posY=15+Math.random()*50;
+  el.style.left=posX+'%';
+  el.style.top=posY+'%';
+
+  // Fade in
+  el.classList.remove('hide');
+  el.classList.add('show');
+
+  // Blink at irregular moments
+  const blinkTimes=[2000,3500,5500,6200];
+  blinkTimes.forEach(t=>{
+    if(Math.random()<.6){
+      setTimeout(()=>{
+        el.querySelectorAll('.de-eye').forEach(eye=>{
+          eye.classList.add('blink');
+          setTimeout(()=>eye.classList.remove('blink'),250);
+        });
+      },t);
+    }
+  });
+
+  // Fade out after 7-9 seconds
+  setTimeout(()=>{
+    el.classList.remove('show');
+    el.classList.add('hide');
+    setTimeout(()=>{
+      el.classList.remove('hide');
+      devilEyesActive=false;
+    },5000);
+  },7000+Math.random()*2000);
+}
+
+function startDevilEyesLoop(){
+  // First appearance after 15-30 seconds
+  setTimeout(()=>{
+    trigDevilEyes();
+    // Then loop every 45-90 seconds
+    (function sched(){
+      setTimeout(()=>{trigDevilEyes();sched()},45000+Math.random()*45000);
+    })();
+  },15000+Math.random()*15000);
+}
+
+// ═══════════════════════════════════════════════
+// ENHANCED OPENING — more intense, more layers
+// ═══════════════════════════════════════════════
+function playOpeningHorror(){
+  if(!AC)return;
+  const now=AC.currentTime;
+
+  // Deep sub-bass drone that builds (30Hz)
+  const sub=AC.createOscillator();
+  const sg2=AC.createGain();
+  sub.type='sine';sub.frequency.value=30;
+  sg2.gain.setValueAtTime(0,now);
+  sg2.gain.linearRampToValueAtTime(.06,now+4);
+  sg2.gain.linearRampToValueAtTime(.03,now+8);
+  sg2.gain.exponentialRampToValueAtTime(.001,now+12);
+  sub.connect(sg2);sg2.connect(SG);
+  sub.start(now);sub.stop(now+12);
+
+  // Distant bell toll (funeral bell)
+  [0,2.5,5].forEach(delay=>{
+    const bell=AC.createOscillator();
+    const bell2=AC.createOscillator();
+    const bg=AC.createGain();
+    bell.type='sine';bell.frequency.value=180;
+    bell2.type='sine';bell2.frequency.value=360;
+    bg.gain.setValueAtTime(.04,now+delay);
+    bg.gain.exponentialRampToValueAtTime(.001,now+delay+2.5);
+    bell.connect(bg);bell2.connect(bg);bg.connect(SG);
+    bell.start(now+delay);bell.stop(now+delay+2.6);
+    bell2.start(now+delay);bell2.stop(now+delay+2.6);
+  });
+
+  // Eerie ascending chord cluster
+  setTimeout(()=>{
+    [110,138.59,164.81,220,277.18].forEach((f,i)=>{
+      const o=AC.createOscillator();
+      const g=AC.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,AC.currentTime);
+      g.gain.linearRampToValueAtTime(.015,AC.currentTime+2+i*.5);
+      g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+6);
+      o.connect(g);g.connect(MG);
+      o.start();o.stop(AC.currentTime+7);
+    });
+  },3000);
+
+  // Wind gust
+  const windLen=AC.sampleRate*8;
+  const windBuf=AC.createBuffer(1,windLen,AC.sampleRate);
+  const wd=windBuf.getChannelData(0);
+  for(let i=0;i<windLen;i++){
+    const t=i/AC.sampleRate;
+    const env=Math.sin(t/8*Math.PI);
+    wd[i]=(Math.random()*2-1)*env*.2;
+  }
+  const ws=AC.createBufferSource();ws.buffer=windBuf;
+  const wf=AC.createBiquadFilter();wf.type='bandpass';wf.frequency.value=400;wf.Q.value=.5;
+  const wg=AC.createGain();wg.gain.value=.03;
+  ws.connect(wf);wf.connect(wg);wg.connect(SG);ws.start(now);
+}
+
+// ═══════════════════════════════════════════════
+// MASTER AUDIO INIT — ties everything together
+// ═══════════════════════════════════════════════
 const _origAutoPlay=autoPlayMusic;
 autoPlayMusic=function(){
   const events=['click','touchstart','scroll','mousemove','keydown','pointerdown','touchend'];
-  const handler=()=>{if(!audioInit){initAC();audioInit=true;startMusic();startSfxLoops();startWolfHowls();document.getElementById('abm').classList.add('play');startSouls();startBurnedPaper();startReaderBloodStains();
-    setTimeout(()=>{if(AC)playWitchCackle()},5000);
-    setTimeout(()=>{if(AC)playWhisper()},12000);
-    setTimeout(()=>{if(AC)playThunder()},20000);
-  }events.forEach(e=>document.removeEventListener(e,handler))};
+  const handler=()=>{
+    if(!audioInit){
+      initAC();
+      audioInit=true;
+      loadAudioFiles(); // Load external MP3s if available
+      startMusic();
+      startSfxLoops();
+      startWolfHowls();
+      startWitchVoiceLoop();
+      startDevilEyesLoop();
+      document.getElementById('abm').classList.add('play');
+      startSouls();startBurnedPaper();startReaderBloodStains();
+      // Intense opening sequence
+      playOpeningHorror();
+      setTimeout(()=>{if(AC)playWitchCackle()},8000);
+      setTimeout(()=>{if(AC)playWhisper()},14000);
+      setTimeout(()=>{if(AC)playThunder()},22000);
+      setTimeout(()=>{if(AC)playWolfHowl()},30000);
+    }
+    events.forEach(e=>document.removeEventListener(e,handler));
+  };
   events.forEach(e=>document.addEventListener(e,handler,{passive:true}));
-  setTimeout(()=>{if(!audioInit){try{initAC();audioInit=true;startMusic();startSfxLoops();startWolfHowls();document.getElementById('abm').classList.add('play');startSouls();startBurnedPaper();startReaderBloodStains();
-    setTimeout(()=>{if(AC)playWitchCackle()},5000);
-  }catch(e){}}},3500);
+  setTimeout(()=>{
+    if(!audioInit){
+      try{
+        initAC();audioInit=true;loadAudioFiles();
+        startMusic();startSfxLoops();startWolfHowls();startWitchVoiceLoop();startDevilEyesLoop();
+        document.getElementById('abm').classList.add('play');
+        startSouls();startBurnedPaper();startReaderBloodStains();
+        playOpeningHorror();
+        setTimeout(()=>{if(AC)playWitchCackle()},8000);
+      }catch(e){}
+    }
+  },3500);
 };
 </script>
 </body>
