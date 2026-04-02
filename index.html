@@ -51,7 +51,7 @@ cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='
 @keyframes ap{0%{opacity:1}50%{opacity:.8}100%{opacity:1}}
 
 .fog{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
-.fp{position:absolute;width:800px;height:250px;background:radial-gradient(ellipse,rgba(196,180,154,.025) 0%,transparent 70%);border-radius:50%;animation:fd linear infinite}
+.fp{position:absolute;width:800px;height:250px;background:radial-gradient(ellipse,rgba(196,180,154,.025) 0%,transparent 70%);border-radius:50%;animation:fd linear infinite;will-change:transform}
 .fp:nth-child(1){top:8%;left:-800px;animation-duration:50s}.fp:nth-child(2){top:35%;left:-800px;animation-duration:62s;animation-delay:10s;opacity:.6}.fp:nth-child(3){top:65%;left:-800px;animation-duration:55s;animation-delay:20s;opacity:.4}.fp:nth-child(4){top:20%;left:-800px;animation-duration:70s;animation-delay:30s;opacity:.5}
 @keyframes fd{0%{transform:translateX(0)}100%{transform:translateX(calc(100vw + 1600px))}}
 
@@ -78,7 +78,7 @@ cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='
 @keyframes bolt-flash{0%{opacity:0}5%{opacity:.9}12%{opacity:.2}18%{opacity:.7}30%{opacity:0}100%{opacity:0}}
 
 /* BATS */
-.bat{position:fixed;pointer-events:none;z-index:9996;width:40px;height:20px;animation:bf 18s linear infinite;opacity:0}
+.bat{position:fixed;pointer-events:none;z-index:9996;width:40px;height:20px;animation:bf 18s linear infinite;opacity:0;will-change:transform,left}
 .bat.b1{animation-delay:0s;top:15%}.bat.b2{animation-delay:8s;top:25%}.bat.b3{animation-delay:14s;top:10%}
 @keyframes bf{0%{left:-60px;opacity:0;transform:translateY(0)}5%{opacity:.7}25%{transform:translateY(-40px)}50%{transform:translateY(30px)}75%{transform:translateY(-20px)}95%{opacity:.7}100%{left:calc(100vw + 60px);opacity:0}}
 .bw{position:absolute;top:0;width:18px;height:14px;background:#1a1a1a;border-radius:80% 80% 0 0}
@@ -421,7 +421,7 @@ footer{background:var(--abyss);border-top:1px solid rgba(61,51,40,.12);padding:7
 .ldr-t{font-family:var(--fg);font-size:20px;color:var(--blood);animation:fk 3s infinite}
 @keyframes fk{0%,100%{opacity:.6}10%{opacity:.55}20%{opacity:.7}30%{opacity:.58}50%{opacity:.65}70%{opacity:.72}80%{opacity:.6}90%{opacity:.68}}
 .ldr-b{width:130px;height:1px;background:var(--bone);margin-top:18px;position:relative;overflow:hidden}
-.ldr-b::after{content:'';position:absolute;left:0;top:0;height:100%;width:100%;background:var(--blood);animation:lp 2.5s cubic-bezier(.22,1,.36,1) forwards}
+.ldr-b::after{content:'';position:absolute;left:0;top:0;height:100%;width:100%;background:var(--blood);animation:lp 1.4s cubic-bezier(.22,1,.36,1) forwards}
 @keyframes lp{from{transform:scaleX(0);transform-origin:left}to{transform:scaleX(1);transform-origin:left}}
 
 /* ═══ RESPONSIVE ═══ */
@@ -461,7 +461,7 @@ nav{padding:0 20px}
 
 /* ═══ WANDERING SOULS (landing page) ═══ */
 .souls-c{position:fixed;inset:0;pointer-events:none;z-index:3;overflow:hidden}
-.soul{position:absolute;opacity:0;animation:soul-wander linear forwards}
+.soul{position:absolute;opacity:0;animation:soul-wander linear forwards;will-change:transform,opacity}
 .soul-body{width:40px;height:70px;position:relative;filter:blur(1.5px)}
 .soul-head{width:20px;height:20px;background:radial-gradient(circle,rgba(255,255,255,.15) 0%,rgba(255,255,255,.05) 50%,transparent 70%);border-radius:50%;margin:0 auto 2px}
 .soul-torso{width:30px;height:35px;margin:0 auto;background:linear-gradient(180deg,rgba(255,255,255,.1) 0%,rgba(200,200,220,.04) 60%,transparent 100%);border-radius:40% 40% 60% 60%;position:relative}
@@ -507,6 +507,33 @@ nav{padding:0 20px}
 .bp-text{font-family:var(--fb);font-size:13px;color:var(--dust);line-height:1.7;position:relative;z-index:1}
 .bp-close{position:absolute;top:8px;right:10px;background:none;border:none;color:var(--ash);font-size:16px;cursor:pointer;z-index:2;pointer-events:auto;transition:color .3s}.bp-close:hover{color:var(--blood-glow)}
 .bp-seal{position:absolute;bottom:10px;right:14px;font-family:var(--fg);font-size:20px;color:rgba(139,26,26,.15);z-index:1}
+/* ═══ FOG IN READER — dispersed, cinematic, doesn't block text ═══ */
+.reader-fog{position:fixed;inset:0;pointer-events:none;z-index:10002;opacity:0;transition:opacity 4s ease-in-out}
+.reader-fog.show{opacity:1}
+.reader-fog.hide{opacity:0;transition:opacity 5s}
+.rfog-layer{position:absolute;inset:0}
+.rfog-layer::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 120% 60% at 50% 50%,rgba(180,170,155,.04) 0%,rgba(160,150,135,.025) 30%,rgba(140,130,120,.015) 50%,transparent 70%);animation:rfog-drift1 20s ease-in-out infinite alternate}
+.rfog-layer::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 100% 80% at 30% 60%,rgba(170,160,145,.03) 0%,transparent 50%),radial-gradient(ellipse 100% 80% at 70% 40%,rgba(170,160,145,.03) 0%,transparent 50%);animation:rfog-drift2 25s ease-in-out infinite alternate}
+/* Edge fog — thicker at sides, thinner at center (so text stays readable) */
+.rfog-edges{position:absolute;inset:0;background:linear-gradient(90deg,rgba(160,150,135,.06) 0%,transparent 20%,transparent 80%,rgba(160,150,135,.06) 100%),linear-gradient(180deg,rgba(160,150,135,.04) 0%,transparent 15%,transparent 85%,rgba(160,150,135,.04) 100%);animation:rfog-drift3 18s ease-in-out infinite alternate}
+@keyframes rfog-drift1{0%{transform:translateX(-3%) translateY(-2%)}100%{transform:translateX(3%) translateY(2%)}}
+@keyframes rfog-drift2{0%{transform:translateX(2%) translateY(1%)}100%{transform:translateX(-2%) translateY(-1%)}}
+@keyframes rfog-drift3{0%{opacity:.8}50%{opacity:1}100%{opacity:.7}}
+
+/* ═══ CINEMATIC CLOWN — silhouette appearing from post sides ═══ */
+.clown-apparition{position:fixed;z-index:10003;pointer-events:none;opacity:0;transition:opacity 2s ease-in-out,transform 4s cubic-bezier(.22,1,.36,1)}
+.clown-apparition.left{left:-120px;top:30%;transform:translateX(0)}
+.clown-apparition.right{right:-120px;top:25%;transform:translateX(0) scaleX(-1)}
+.clown-apparition.peek-left{opacity:.22;left:0;transform:translateX(20px)}
+.clown-apparition.peek-right{opacity:.22;right:0;transform:translateX(-20px) scaleX(-1)}
+.clown-apparition.retreat{opacity:0;transition:opacity 3s,transform 3s}
+
+/* ═══ WEEPING WOMAN — landing page shadow ═══ */
+.weeping-woman{position:fixed;z-index:5;pointer-events:none;opacity:0;transition:opacity 5s ease-in-out}
+.weeping-woman.show{opacity:1}
+.weeping-woman.hide{opacity:0;transition:opacity 4s}
+.ww-glow{position:absolute;inset:-30%;border-radius:50%;background:radial-gradient(circle,rgba(100,110,130,.03) 0%,transparent 60%);animation:ww-pulse 6s ease-in-out infinite}
+@keyframes ww-pulse{0%,100%{opacity:.6}50%{opacity:1}}
 </style>
 </head>
 <body>
@@ -561,6 +588,114 @@ nav{padding:0 20px}
 <div class="bsplc" id="bspl"></div>
 <!-- ASH OVERLAY -->
 <div class="ash-overlay" id="ashov"></div>
+
+<!-- FOG OVERLAY (reader only — cinematic horror fog) -->
+<div class="reader-fog" id="readerFog">
+  <div class="rfog-layer"></div>
+  <div class="rfog-edges"></div>
+</div>
+
+<!-- CLOWN — left side (appears during reading) -->
+<div class="clown-apparition left" id="clownL">
+<svg viewBox="0 0 140 400" width="140" height="400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Wild hair -->
+  <path d="M40 60 Q20 40 15 55 Q10 70 20 80 Q10 75 8 90 Q6 105 18 100 Q12 110 20 118" stroke="rgba(60,20,15,.8)" stroke-width="3" fill="rgba(40,15,10,.6)"/>
+  <path d="M100 60 Q120 40 125 55 Q130 70 120 80 Q130 75 132 90 Q134 105 122 100 Q128 110 120 118" stroke="rgba(60,20,15,.8)" stroke-width="3" fill="rgba(40,15,10,.6)"/>
+  <!-- Head -->
+  <ellipse cx="70" cy="90" rx="38" ry="42" fill="rgba(200,190,175,.12)"/>
+  <!-- Forehead wrinkles -->
+  <path d="M45 70 Q55 65 65 68 Q75 65 85 68 Q95 65 100 70" stroke="rgba(80,60,50,.15)" stroke-width="1" fill="none"/>
+  <!-- Eyes — dark, hollow, menacing -->
+  <ellipse cx="55" cy="82" rx="10" ry="8" fill="rgba(5,3,2,.9)"/>
+  <ellipse cx="85" cy="82" rx="10" ry="8" fill="rgba(5,3,2,.9)"/>
+  <!-- Tiny glint in eyes -->
+  <circle cx="55" cy="80" r="2" fill="rgba(200,200,210,.12)"/>
+  <circle cx="85" cy="80" r="2" fill="rgba(200,200,210,.12)"/>
+  <!-- Nose — exaggerated bulbous -->
+  <ellipse cx="70" cy="95" rx="8" ry="7" fill="rgba(139,26,26,.2)"/>
+  <!-- Mouth — wide, sinister grin stretching ear to ear -->
+  <path d="M38 108 Q45 102 55 105 Q62 115 70 118 Q78 115 85 105 Q95 102 102 108" stroke="rgba(139,26,26,.35)" stroke-width="2" fill="rgba(100,15,10,.15)"/>
+  <!-- Teeth hints in the grin -->
+  <path d="M50 107 L52 112 L55 107 L58 112 L61 107 L64 112 L67 107 L70 113 L73 107 L76 112 L79 107 L82 112 L85 107 L88 112 L90 107" stroke="rgba(200,190,175,.08)" stroke-width=".8" fill="none"/>
+  <!-- Neck ruff / collar -->
+  <path d="M35 130 Q45 140 55 135 Q62 142 70 138 Q78 142 85 135 Q95 140 105 130 Q100 145 95 148 Q80 155 70 152 Q60 155 45 148 Q40 145 35 130Z" fill="rgba(200,190,175,.06)" stroke="rgba(150,140,125,.08)" stroke-width=".5"/>
+  <!-- Body — tall, gaunt silhouette -->
+  <path d="M45 148 Q40 200 38 260 Q36 320 35 380 Q38 395 50 400 L55 380 Q52 300 50 240 Q52 190 55 160" fill="rgba(15,12,10,.85)"/>
+  <path d="M95 148 Q100 200 102 260 Q104 320 105 380 Q102 395 90 400 L85 380 Q88 300 90 240 Q88 190 85 160" fill="rgba(15,12,10,.85)"/>
+  <!-- Torso -->
+  <path d="M55 148 Q58 155 60 170 L60 250 Q65 260 70 260 Q75 260 80 250 L80 170 Q82 155 85 148" fill="rgba(15,12,10,.85)"/>
+  <!-- One arm reaching toward viewer -->
+  <path d="M45 165 Q30 180 20 200 Q15 215 18 230 Q16 235 12 232 Q10 240 15 245 Q12 248 10 245 Q8 252 14 255 L22 248 Q25 238 24 225 Q28 210 35 195 Q42 180 48 172" fill="rgba(15,12,10,.8)" stroke="rgba(30,25,20,.5)" stroke-width=".5"/>
+  <!-- Long fingers -->
+  <path d="M14 255 Q8 262 5 270" stroke="rgba(180,170,155,.08)" stroke-width="1.5" fill="none"/>
+  <path d="M18 252 Q13 260 10 268" stroke="rgba(180,170,155,.08)" stroke-width="1.5" fill="none"/>
+  <path d="M22 248 Q18 258 16 265" stroke="rgba(180,170,155,.08)" stroke-width="1.5" fill="none"/>
+</svg>
+</div>
+
+<!-- CLOWN — right side (mirror of left) -->
+<div class="clown-apparition right" id="clownR">
+<svg viewBox="0 0 140 400" width="140" height="400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M40 60 Q20 40 15 55 Q10 70 20 80 Q10 75 8 90 Q6 105 18 100 Q12 110 20 118" stroke="rgba(60,20,15,.8)" stroke-width="3" fill="rgba(40,15,10,.6)"/>
+  <path d="M100 60 Q120 40 125 55 Q130 70 120 80 Q130 75 132 90 Q134 105 122 100 Q128 110 120 118" stroke="rgba(60,20,15,.8)" stroke-width="3" fill="rgba(40,15,10,.6)"/>
+  <ellipse cx="70" cy="90" rx="38" ry="42" fill="rgba(200,190,175,.12)"/>
+  <path d="M45 70 Q55 65 65 68 Q75 65 85 68 Q95 65 100 70" stroke="rgba(80,60,50,.15)" stroke-width="1" fill="none"/>
+  <ellipse cx="55" cy="82" rx="10" ry="8" fill="rgba(5,3,2,.9)"/>
+  <ellipse cx="85" cy="82" rx="10" ry="8" fill="rgba(5,3,2,.9)"/>
+  <circle cx="55" cy="80" r="2" fill="rgba(200,200,210,.12)"/>
+  <circle cx="85" cy="80" r="2" fill="rgba(200,200,210,.12)"/>
+  <ellipse cx="70" cy="95" rx="8" ry="7" fill="rgba(139,26,26,.2)"/>
+  <path d="M38 108 Q45 102 55 105 Q62 115 70 118 Q78 115 85 105 Q95 102 102 108" stroke="rgba(139,26,26,.35)" stroke-width="2" fill="rgba(100,15,10,.15)"/>
+  <path d="M50 107 L52 112 L55 107 L58 112 L61 107 L64 112 L67 107 L70 113 L73 107 L76 112 L79 107 L82 112 L85 107 L88 112 L90 107" stroke="rgba(200,190,175,.08)" stroke-width=".8" fill="none"/>
+  <path d="M35 130 Q45 140 55 135 Q62 142 70 138 Q78 142 85 135 Q95 140 105 130 Q100 145 95 148 Q80 155 70 152 Q60 155 45 148 Q40 145 35 130Z" fill="rgba(200,190,175,.06)" stroke="rgba(150,140,125,.08)" stroke-width=".5"/>
+  <path d="M45 148 Q40 200 38 260 Q36 320 35 380 Q38 395 50 400 L55 380 Q52 300 50 240 Q52 190 55 160" fill="rgba(15,12,10,.85)"/>
+  <path d="M95 148 Q100 200 102 260 Q104 320 105 380 Q102 395 90 400 L85 380 Q88 300 90 240 Q88 190 85 160" fill="rgba(15,12,10,.85)"/>
+  <path d="M55 148 Q58 155 60 170 L60 250 Q65 260 70 260 Q75 260 80 250 L80 170 Q82 155 85 148" fill="rgba(15,12,10,.85)"/>
+  <path d="M45 165 Q30 180 20 200 Q15 215 18 230 Q16 235 12 232 Q10 240 15 245 Q12 248 10 245 Q8 252 14 255 L22 248 Q25 238 24 225 Q28 210 35 195 Q42 180 48 172" fill="rgba(15,12,10,.8)"/>
+  <path d="M14 255 Q8 262 5 270" stroke="rgba(180,170,155,.08)" stroke-width="1.5" fill="none"/>
+  <path d="M18 252 Q13 260 10 268" stroke="rgba(180,170,155,.08)" stroke-width="1.5" fill="none"/>
+  <path d="M22 248 Q18 258 16 265" stroke="rgba(180,170,155,.08)" stroke-width="1.5" fill="none"/>
+</svg>
+</div>
+
+<!-- WEEPING WOMAN (landing page — appears and fades at irregular intervals) -->
+<div class="weeping-woman" id="weepWoman" style="bottom:5%;right:8%">
+  <div class="ww-glow"></div>
+  <svg viewBox="0 0 160 450" width="120" height="340" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:.85;filter:blur(.5px)">
+    <!-- Long flowing hair covering face -->
+    <path d="M80 10 Q50 8 35 30 Q22 55 20 85 Q18 110 22 135 Q20 155 18 170 L25 172 Q28 150 30 130 Q32 100 38 75 Q45 50 60 35 Q70 28 80 26 Q90 28 100 35 Q115 50 122 75 Q128 100 130 130 Q132 150 135 172 L142 170 Q140 155 138 135 Q142 110 140 85 Q138 55 125 30 Q110 8 80 10Z" fill="rgba(15,12,10,.9)" stroke="rgba(30,25,20,.4)" stroke-width=".5"/>
+    <!-- Hair strands hanging over face -->
+    <path d="M45 80 Q42 120 40 160 Q38 190 42 210" stroke="rgba(15,12,10,.7)" stroke-width="2" fill="none"/>
+    <path d="M60 70 Q55 110 52 150 Q50 180 52 200" stroke="rgba(15,12,10,.6)" stroke-width="1.5" fill="none"/>
+    <path d="M100 70 Q105 110 108 150 Q110 180 108 200" stroke="rgba(15,12,10,.6)" stroke-width="1.5" fill="none"/>
+    <path d="M115 80 Q118 120 120 160 Q122 190 118 210" stroke="rgba(15,12,10,.7)" stroke-width="2" fill="none"/>
+    <!-- Face — barely visible behind hair, deathly pale -->
+    <ellipse cx="80" cy="80" rx="22" ry="28" fill="rgba(40,36,32,.5)"/>
+    <!-- Dark eye hollows visible through hair gaps -->
+    <ellipse cx="72" cy="76" rx="5" ry="4" fill="rgba(5,3,2,.6)"/>
+    <ellipse cx="88" cy="76" rx="5" ry="4" fill="rgba(5,3,2,.6)"/>
+    <!-- Open mouth — anguished -->
+    <ellipse cx="80" cy="92" rx="6" ry="8" fill="rgba(5,3,2,.5)"/>
+    <!-- Tear streaks -->
+    <path d="M72 82 Q70 95 71 108 Q70 118 72 125" stroke="rgba(100,110,130,.1)" stroke-width="1" fill="none"/>
+    <path d="M88 82 Q90 95 89 108 Q90 118 88 125" stroke="rgba(100,110,130,.1)" stroke-width="1" fill="none"/>
+    <!-- Shoulders slumped -->
+    <path d="M40 170 Q50 155 65 150 Q75 148 80 147 Q85 148 95 150 Q110 155 120 170" fill="rgba(15,12,10,.8)"/>
+    <!-- Arms covering face / hunched over weeping -->
+    <path d="M40 170 Q30 190 28 210 Q26 230 30 245 Q35 250 42 248 L50 230 Q48 210 50 195 Q52 180 55 170" fill="rgba(15,12,10,.75)"/>
+    <path d="M120 170 Q130 190 132 210 Q134 230 130 245 Q125 250 118 248 L110 230 Q112 210 110 195 Q108 180 105 170" fill="rgba(15,12,10,.75)"/>
+    <!-- Hands near face (weeping gesture) -->
+    <ellipse cx="55" cy="140" rx="7" ry="5" fill="rgba(40,36,32,.3)" transform="rotate(-15 55 140)"/>
+    <ellipse cx="105" cy="140" rx="7" ry="5" fill="rgba(40,36,32,.3)" transform="rotate(15 105 140)"/>
+    <!-- Body / dress — long, tattered, flowing -->
+    <path d="M40 245 Q35 300 32 350 Q30 390 28 430 Q35 445 50 448 Q65 450 80 450 Q95 450 110 448 Q125 445 132 430 Q130 390 128 350 Q125 300 120 245 Q110 250 95 252 Q85 253 80 253 Q75 253 65 252 Q50 250 40 245Z" fill="rgba(15,12,10,.85)"/>
+    <!-- Dress tatter details -->
+    <path d="M28 430 Q25 440 30 448" stroke="rgba(15,12,10,.6)" fill="none" stroke-width="1.5"/>
+    <path d="M132 430 Q135 440 130 448" stroke="rgba(15,12,10,.6)" fill="none" stroke-width="1.5"/>
+    <path d="M55 448 Q53 455 56 460" stroke="rgba(15,12,10,.5)" fill="none" stroke-width="1"/>
+    <path d="M105 448 Q107 455 104 460" stroke="rgba(15,12,10,.5)" fill="none" stroke-width="1"/>
+  </svg>
+</div>
 
 <!-- BLACK NUN (appears during reading — approaching from behind, cinematic shadow) -->
 <div class="shadow-girl" id="sgirl">
@@ -1227,11 +1362,33 @@ document.head.appendChild(Object.assign(document.createElement('style'),{textCon
 function moveOwl(){const o=document.getElementById('owl'),ps=[{top:'120px',right:'60px',left:'auto'},{top:'200px',right:'auto',left:'40px'},{top:'350px',right:'80px',left:'auto'},{top:'500px',right:'auto',left:'60px'}],r=ps[Math.floor(Math.random()*ps.length)];o.style.top=r.top;o.style.right=r.right;o.style.left=r.left}
 
 // ─── DUST ───
-(function(){const c=document.getElementById('dustc');for(let i=0;i<25;i++){const m=document.createElement('div');m.className='dm';m.style.left=Math.random()*100+'%';m.style.animationDuration=(15+Math.random()*25)+'s';m.style.animationDelay=Math.random()*20+'s';m.style.opacity=.1+Math.random()*.4;m.style.width=m.style.height=(1+Math.random()*2)+'px';c.appendChild(m)}})();
+(function(){const c=document.getElementById('dustc');for(let i=0;i<15;i++){const m=document.createElement('div');m.className='dm';m.style.left=Math.random()*100+'%';m.style.animationDuration=(18+Math.random()*25)+'s';m.style.animationDelay=Math.random()*20+'s';m.style.opacity=.1+Math.random()*.3;m.style.width=m.style.height=(1+Math.random()*2)+'px';c.appendChild(m)}})();
 
 // ─── LAMP (PERSISTENT — works everywhere) ───
 let lampOn=false;
-function tgLamp(){lampOn=!lampOn;document.getElementById('lb').classList.toggle('on');document.getElementById('lg').classList.toggle('on');const rb=document.getElementById('rb');if(rb)rb.classList.toggle('lamp',lampOn)}
+function tgLamp(){lampOn=!lampOn;document.getElementById('lb').classList.toggle('on');document.getElementById('lg').classList.toggle('on');const rb=document.getElementById('rb');if(rb)rb.classList.toggle('lamp',lampOn);
+  // Candle sound
+  if(AC){
+    if(lampOn){
+      // Match strike + flame ignite
+      const n=AC.createBufferSource(),nb=AC.createBuffer(1,AC.sampleRate*.3,AC.sampleRate),nd=nb.getChannelData(0);
+      for(let i=0;i<nd.length;i++){const t=i/AC.sampleRate;nd[i]=(Math.random()*2-1)*(t<.05?t/.05:Math.exp(-(t-.05)*8))*.4}
+      n.buffer=nb;const nf=AC.createBiquadFilter();nf.type='highpass';nf.frequency.value=3000;
+      const ng=AC.createGain();ng.gain.value=.06;n.connect(nf);nf.connect(ng);ng.connect(SG);n.start();
+      // Warm flame crackle
+      const o=AC.createOscillator(),g=AC.createGain();o.type='sine';o.frequency.value=800;
+      o.frequency.exponentialRampToValueAtTime(200,AC.currentTime+.3);
+      g.gain.setValueAtTime(.03,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+.4);
+      o.connect(g);g.connect(SG);o.start();o.stop(AC.currentTime+.5);
+    } else {
+      // Extinguish puff
+      const n=AC.createBufferSource(),nb=AC.createBuffer(1,AC.sampleRate*.2,AC.sampleRate),nd=nb.getChannelData(0);
+      for(let i=0;i<nd.length;i++)nd[i]=(Math.random()*2-1)*Math.exp(-i/(AC.sampleRate*.04))*.3;
+      n.buffer=nb;const nf=AC.createBiquadFilter();nf.type='bandpass';nf.frequency.value=1500;nf.Q.value=.5;
+      const ng=AC.createGain();ng.gain.value=.05;n.connect(nf);nf.connect(ng);ng.connect(SG);n.start();
+    }
+  }
+}
 document.addEventListener('mousemove',e=>{if(!lampOn)return;const g=document.getElementById('lg');g.style.left=e.clientX+'px';g.style.top=e.clientY+'px';const rb=document.getElementById('rb');if(rb){const r=rb.getBoundingClientRect();rb.style.setProperty('--lx',(e.clientX-r.left)/r.width*100+'%');rb.style.setProperty('--ly',(e.clientY-r.top)/r.height*100+'%')}});
 
 // ─── BLOOD SPLASH ───
@@ -1335,7 +1492,7 @@ function trigScream(){initAC();if(!AC)return;const o=AC.createOscillator(),g=AC.
 document.head.appendChild(Object.assign(document.createElement('style'),{textContent:'@keyframes ssk{0%,100%{transform:translate(0)}10%{transform:translate(-2px,1px)}20%{transform:translate(2px,-1px)}30%{transform:translate(-1px,2px)}40%{transform:translate(1px,-1px)}50%{transform:translate(-1px,1px)}60%{transform:translate(2px,0)}70%{transform:translate(-1px,-1px)}80%{transform:translate(0,1px)}90%{transform:translate(1px,0)}}'}));
 
 // ─── GLOBAL ───
-window.addEventListener('load',()=>setTimeout(()=>document.getElementById('ldr').classList.add('hide'),2800));
+window.addEventListener('load',()=>setTimeout(()=>document.getElementById('ldr').classList.add('hide'),1600));
 window.addEventListener('scroll',()=>{const y=scrollY;document.getElementById('nav').classList.toggle('scrolled',y>80);document.getElementById('btt').classList.toggle('vis',y>500)});
 window.addEventListener('scroll',()=>{const h=document.querySelector('.hc'),y=scrollY;if(y<innerHeight){h.style.transform=`translateY(${y*.3}px)`;h.style.opacity=1-y/(innerHeight*.75)}},{passive:true});
 document.getElementById('mb').addEventListener('click',function(){const l=document.querySelector('.nl');if(l.style.display==='flex')l.style.display='none';else l.style.cssText='display:flex;position:fixed;top:70px;left:0;right:0;background:rgba(8,8,8,.98);flex-direction:column;padding:24px 40px;gap:20px;border-bottom:1px solid rgba(61,51,40,.3);z-index:9999'});
@@ -1788,6 +1945,8 @@ initAC=function(){_origInitAC();loadScreamAudio()};
 //   witch-come.mp3       — Woman's voice: "Come here"  
 //   girl-scream.mp3      — Real girl scream
 //   nun-whisper.mp3      — Eerie nun whisper/prayer
+//   clown-laugh.mp3      — Menacing clown laugh
+//   weeping-woman.mp3    — Woman crying/sobbing
 //
 // The system will automatically load and use them.
 // If a file is missing, it falls back to synthesized sound.
@@ -1799,7 +1958,7 @@ initAC=function(){_origInitAC();loadScreamAudio()};
 // ═══════════════════════════════════════════════════════════════
 
 const audioFiles={};
-const audioFileNames=['wolf-howl','witch-watching','witch-come','girl-scream','nun-whisper'];
+const audioFileNames=['wolf-howl','witch-watching','witch-come','girl-scream','nun-whisper','clown-laugh','weeping-woman'];
 
 async function loadAudioFiles(){
   if(!AC)return;
@@ -2047,6 +2206,130 @@ autoPlayMusic=function(){
     }
   },3500);
 };
+
+// ═══════════════════════════════════════════════
+// READER FOG — cinematic dispersed fog during reading
+// ═══════════════════════════════════════════════
+let fogInterval=null;
+function startReaderFogLoop(){
+  fogInterval=setTimeout(function fogLoop(){
+    showReaderFog();
+    fogInterval=setTimeout(fogLoop,35000+Math.random()*40000);
+  },20000+Math.random()*20000);
+}
+function stopReaderFogLoop(){clearTimeout(fogInterval);const f=document.getElementById('readerFog');f.classList.remove('show','hide')}
+
+function showReaderFog(){
+  const f=document.getElementById('readerFog');
+  if(!document.getElementById('rdr').classList.contains('on'))return;
+  f.classList.remove('hide');f.classList.add('show');
+  setTimeout(()=>{f.classList.remove('show');f.classList.add('hide');setTimeout(()=>f.classList.remove('hide'),5000)},10000+Math.random()*6000);
+}
+
+// ═══════════════════════════════════════════════
+// CINEMATIC CLOWN — peeks from post sides
+// ═══════════════════════════════════════════════
+let clownInterval=null,clownActive=false;
+function startClownLoop(){
+  clownInterval=setTimeout(function clownLoop(){
+    if(document.getElementById('rdr').classList.contains('on')&&!clownActive)trigClown();
+    clownInterval=setTimeout(clownLoop,50000+Math.random()*50000);
+  },40000+Math.random()*40000);
+}
+function stopClownLoop(){clearTimeout(clownInterval);
+  document.getElementById('clownL').className='clown-apparition left';
+  document.getElementById('clownR').className='clown-apparition right';clownActive=false}
+
+function trigClown(){
+  clownActive=true;
+  const side=Math.random()>.5?'L':'R';
+  const el=document.getElementById('clown'+side);
+  const peekClass=side==='L'?'peek-left':'peek-right';
+  el.style.top=(15+Math.random()*50)+'%';
+  el.classList.add(peekClass);
+  setTimeout(()=>playClownLaugh(),1500);
+  setTimeout(()=>{
+    el.classList.remove(peekClass);el.classList.add('retreat');
+    setTimeout(()=>{el.className='clown-apparition '+(side==='L'?'left':'right');clownActive=false},3000);
+  },4000+Math.random()*2000);
+}
+
+function playClownLaugh(){
+  if(typeof playAudioFile==='function'&&playAudioFile('clown-laugh',.08))return;
+  if(!AC)return;
+  const now=AC.currentTime;
+  const laughCount=6+Math.floor(Math.random()*4);
+  for(let i=0;i<laughCount;i++){
+    const t=now+i*.18;const pitch=500-i*20+Math.random()*30;
+    const o=AC.createOscillator(),o2=AC.createOscillator(),g=AC.createGain(),f=AC.createBiquadFilter();
+    o.type='sawtooth';o.frequency.setValueAtTime(pitch,t);o.frequency.exponentialRampToValueAtTime(pitch*.7,t+.1);
+    o2.type='sine';o2.frequency.setValueAtTime(pitch*2,t);
+    f.type='bandpass';f.frequency.value=800+Math.random()*400;f.Q.value=3;
+    g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.02,t+.02);g.gain.exponentialRampToValueAtTime(.001,t+.12);
+    o.connect(f);o2.connect(f);f.connect(g);g.connect(SG);o.start(t);o.stop(t+.15);o2.start(t);o2.stop(t+.15);
+  }
+  // Trailing wheeze
+  const wh=AC.createBufferSource(),whBuf=AC.createBuffer(1,AC.sampleRate*1.5,AC.sampleRate),whd=whBuf.getChannelData(0);
+  for(let i=0;i<whd.length;i++){const t2=i/AC.sampleRate;whd[i]=(Math.random()*2-1)*Math.sin(t2*400)*Math.exp(-t2*2)*.2}
+  wh.buffer=whBuf;const whf=AC.createBiquadFilter();whf.type='bandpass';whf.frequency.value=1200;whf.Q.value=2;
+  const whg=AC.createGain();whg.gain.value=.015;
+  wh.connect(whf);whf.connect(whg);whg.connect(SG);wh.start(now+laughCount*.18);
+}
+
+// ═══════════════════════════════════════════════
+// WEEPING WOMAN — landing page shadow
+// ═══════════════════════════════════════════════
+let weepActive=false;
+function startWeepingWomanLoop(){
+  setTimeout(function weepLoop(){
+    if(!document.getElementById('rdr').classList.contains('on')&&!weepActive)trigWeepingWoman();
+    setTimeout(weepLoop,50000+Math.random()*50000);
+  },25000+Math.random()*20000);
+}
+
+function trigWeepingWoman(){
+  weepActive=true;const el=document.getElementById('weepWoman');
+  const positions=[
+    {bottom:'5%',right:'8%',left:'auto',top:'auto'},
+    {bottom:'5%',left:'8%',right:'auto',top:'auto'},
+    {top:'20%',right:'5%',bottom:'auto',left:'auto'},
+    {top:'20%',left:'5%',bottom:'auto',right:'auto'},
+  ];
+  Object.assign(el.style,positions[Math.floor(Math.random()*positions.length)]);
+  el.classList.remove('hide');el.classList.add('show');
+  setTimeout(()=>playWeepSound(),2000);
+  setTimeout(()=>{el.classList.remove('show');el.classList.add('hide');setTimeout(()=>{el.classList.remove('hide');weepActive=false},5000)},8000+Math.random()*4000);
+}
+
+function playWeepSound(){
+  if(typeof playAudioFile==='function'&&playAudioFile('weeping-woman',.06))return;
+  if(!AC)return;
+  const now=AC.currentTime;const sobs=4+Math.floor(Math.random()*3);
+  for(let i=0;i<sobs;i++){
+    const t=now+i*1.2;
+    // Inhale
+    const inBuf=AC.createBuffer(1,AC.sampleRate*.3,AC.sampleRate),ind=inBuf.getChannelData(0);
+    for(let j=0;j<ind.length;j++){const env=j<ind.length*.3?j/(ind.length*.3):Math.exp(-(j-ind.length*.3)/(AC.sampleRate*.08));ind[j]=(Math.random()*2-1)*env*.15}
+    const inS=AC.createBufferSource();inS.buffer=inBuf;const inF=AC.createBiquadFilter();inF.type='highpass';inF.frequency.value=2000;
+    const inG=AC.createGain();inG.gain.value=.02;inS.connect(inF);inF.connect(inG);inG.connect(SG);inS.start(t);
+    // Whimper
+    const o=AC.createOscillator(),g=AC.createGain();o.type='sine';
+    o.frequency.setValueAtTime(380+Math.random()*60,t+.35);o.frequency.linearRampToValueAtTime(320+Math.random()*40,t+.85);
+    const vib=AC.createOscillator(),vg=AC.createGain();vib.type='sine';vib.frequency.value=7;vg.gain.value=12;
+    vib.connect(vg);vg.connect(o.frequency);
+    g.gain.setValueAtTime(0,t+.35);g.gain.linearRampToValueAtTime(.015,t+.4);g.gain.exponentialRampToValueAtTime(.001,t+.9);
+    const f=AC.createBiquadFilter();f.type='bandpass';f.frequency.value=600;f.Q.value=2;
+    o.connect(f);f.connect(g);g.connect(SG);o.start(t+.35);o.stop(t+1);vib.start(t+.35);vib.stop(t+1);
+  }
+}
+
+// ═══ Wire fog + clown into reader, weeping woman into boot ═══
+const ___origStartRFx=startReaderFx;
+startReaderFx=function(){___origStartRFx();startReaderFogLoop();startClownLoop()};
+const ___origStopRFx=stopReaderFx;
+stopReaderFx=function(){___origStopRFx();stopReaderFogLoop();stopClownLoop()};
+const ___origBoot=boot;
+boot=function(){___origBoot();setTimeout(startWeepingWomanLoop,6000)};
 </script>
 </body>
 </html>
